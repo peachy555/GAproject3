@@ -10,6 +10,46 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
+ *= require bootstrap.min
+ *= require semantic.min
+ *= require icon.min
  *= require_tree .
  *= require_self
  */
+
+ #main-container {
+   margin-top: 20px;
+   width: 100vw;
+   height: 100vh;
+ }
+
+ h1 {
+   font-size: 80px;
+ }
+
+ h2 {
+   font-size: 32px;
+ }
+
+ #page-content {
+   font-size: 18px;
+ }
+
+ #new-project, #top-menu-inner-cont, .project-list, .page-list, .highlighter-list {
+   width: 100%;
+ }
+
+ .highlighter-list-wrap {
+   border: 5px solid white;
+   border-radius: 2px;
+ }
+
+ #page-title, #project-title, #highlighter-title {
+   height: 28px;
+   font-size: 24px;
+ }
+
+ .project-name {
+   font-size: 18px;
+   height: 20px;
+ }

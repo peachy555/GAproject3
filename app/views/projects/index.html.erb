@@ -1,0 +1,34 @@
+<div id="main-container">
+  <div id="project-menu" class="col-md-3">
+    <div id="project-title">Projects:</div>
+    <hr>
+    <div class="ui button" id="new-project">Create new project</div>
+    <div class="ui relaxed divided list">
+      <% @projects.each do |project| %>
+        <div class="item">
+          <div class="content project-list" project-id='<%= project.id %>'>
+            <div class="project-name"><%= project.name %></div>
+            <% project.pages.each do |page| %>
+            <%#binding.pry%>
+              <div class="ui button content page-list" page-id='<%= page.id %>'>
+                <%= page.title %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <div id="workspace" class="col-md-6">
+    <div id="page-title">Select Page</div>
+    <hr>
+    <div id="page-container">
+      <span id="page-content"></span>
+    </div>
+  </div>
+  <div id="highlighter-menu" class="col-md-3">
+    <div id="highlighter-title">Highlighter</div>
+    <hr>
+    <div id="highlighter-listing"></div>
+  </div>
+</div>

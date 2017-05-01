@@ -1,0 +1,20 @@
+<div id="main-container" class="ui inverted vertical masthead center aligned segment">
+  <div class="ui text container">
+    <div id="title"><h1>Highlight</h1></div>
+    <div id="tagline"><h2>Highlighting Research Tool</h2></div>
+    <div id="login">
+      <%= form_tag login_path, method: "post" do %>
+        <div id="login-input">
+          <div class="ui input">
+            <input id="login-email" name="email" type="text" placeholder="Email"/>
+          </div>
+          <div class="ui input">
+            <input id="login-password" name="password" type="password" placeholder="Password"/>
+          </div>
+        </div>
+
+        <input id="login-button" type="submit" class="ui inverted button" value="Log in"/>
+      <% end %>
+    </div>
+  </div>
+</div>
