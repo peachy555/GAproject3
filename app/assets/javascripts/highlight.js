@@ -1,4 +1,9 @@
 $(document).ready(() => {
+  var pageContentHighlight = () => {
+
+  }
+
+
   // Select page / Display page content, highlighters in project
   $(document).on("click", ".page-list", (event) => {
     $(".page-list.primary").removeClass("primary");
@@ -14,11 +19,21 @@ $(document).ready(() => {
         page_id: selectedPageId
       },
       success: function(data) {
+        console.log('page ajax success:', data);
         // load selected page content
         $("#page-title").empty().html(data.page.title);
-        $("#page-content").empty().html(data.page.content);
+        $("#page-content").empty();
+        $("<span>").html(data.page.content).appendTo("#page-content");
+
         // load highlighters
         $("#highlighter-listing").empty();
+        // new highlighter button
+        $("<div>")
+          .html("New Highlighter")
+          .addClass("ui button")
+          .attr("id", "new-highlighter")
+          .appendTo("#highlighter-listing");
+        // display each highlighters
         _.each(data.highlighters, (highlighter) => {
           let $highlighterWrap = $('<div>')
             .addClass('highlighter-list-wrap')
@@ -31,6 +46,30 @@ $(document).ready(() => {
               "color": highlighter.color,
               "backgroundColor": highlighter.backgroundColor,
             }).appendTo($highlighterWrap);
+        });
+
+        // load highlights
+        _.each(data.highlights, (highlight) => {
+          highlighter = _.where(data.highlighters, {id: highlight.id});
+          let $highlight = $('<span>')
+            .addClass('highlight')
+            .attr('highlight-id', highlight.id)
+            .attr('highlighter-id', highlight.highlighter_id)
+            .html(highlight.content)
+            .css({
+              'color': highlighter[0].color,
+              'backgroundColor': highlighter[0].backgroundColor
+            });
+
+          let contentsNoHighlight = $("#page-content > span:not([class])")
+          let spanContainHighlight = _.find(contentsNoHighlight, (span) => {
+            return $(span).html().indexOf(highlight.content) != -1 ? true : false;
+          });
+
+          let splitHighlight = $(spanContainHighlight).html().split(highlight.content);
+          let $before = $("<span>").html(splitHighlight[0]);
+          let $after = $("<span>").html(splitHighlight[1]);
+          $(spanContainHighlight).replaceWith($before.prop('outerHTML') + $highlight.prop('outerHTML') + $after.prop('outerHTML'));
         });
       },
       error: function(e) {
@@ -61,6 +100,7 @@ $(document).ready(() => {
 
   // page content highlighting, work only of highlighter is selected
     $(document).on("mouseup", "#page-content", () => {
+      // If any highlighter is selected
       if($(".highlighter-list.active").html()) {
         let highlighter = {
           id: $(".highlighter-list.active").attr("highlighter-id"),
@@ -77,18 +117,42 @@ $(document).ready(() => {
         // check if the start and end of highlighted part is insided already highlighted text or not?
         if( ($startDOM.attr('class')!='highlight') && ($endDOM.attr('class')!='highlight') ) {
           let context = $startDOM.html();
-          let splitResult = context.split(selection.toString());
+          let splitHighlight = context.split(selection.toString());
+          debugger
+          // Create highlight in Rails db
+          $.ajax({
+            url: "/highlights/new",
+            method: "POST",
+            data: {
+              format: "json",
+              content: selection.toString(),
+              page_id: parseInt($(".page-list.primary").attr("page-id")),
+              highlighter_id: highlighter.id,
+            },
+            success: function(data) {
+              let highlightId = data;
+              console.log('Successfull post req');
 
-          let $highlight = $("<span>")
-            .addClass("highlight")
-            .attr("highlighter", highlighter.id)
-            .html(selection.toString());
-          $highlight.css(highlighter.cssProp);
-          $startDOM.html(splitResult[0] + $highlight.prop('outerHTML') + splitResult[1]);
+              // physical highlight
+              let $highlight = $("<span>")
+                .addClass("highlight")
+                .attr("highlighter-id", highlighter.id)
+                .attr("highlight-id", highlightId)
+                .html(selection.toString())
+                .css(highlighter.cssProp);
+              let $before = $("<span>").html(splitHighlight[0]);
+              let $after = $("<span>").html(splitHighlight[1]);
+
+              $startDOM.replaceWith($before.prop('outerHTML') + $highlight.prop('outerHTML') + $after.prop('outerHTML'));
+            },
+            error: function(e) {
+              console.log(e);
+            }
+          });
+
         } else {
           console.log("You are highlighting already highlighted content");
         }
-
       } else {
         console.log("Select a highlighter");
       }

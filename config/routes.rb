@@ -6,6 +6,10 @@ Rails.application.routes.draw do
   get "workspace", to: "projects#index", as: "workspace"
   get "settings", to: "users#settings", as: "settings"
 
+  resources "highlighters"
+  post "highlights/new", to: "highlights#create"
+  # get "highlighters/new", to: "highlighters#new", as: "highlighter_new"
+
   post "login", to: "sessions#create"
   delete "logout", to: "sessions#destroy", as: "logout"
 end

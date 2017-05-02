@@ -1,4 +1,5 @@
 <div id="main-container">
+
   <div id="project-menu" class="col-md-3">
     <div id="project-title">Projects:</div>
     <hr>
@@ -19,6 +20,7 @@
       <% end %>
     </div>
   </div>
+
   <div id="workspace" class="col-md-6">
     <div id="page-title">Select Page</div>
     <hr>
@@ -26,9 +28,33 @@
       <span id="page-content"></span>
     </div>
   </div>
+
   <div id="highlighter-menu" class="col-md-3">
     <div id="highlighter-title">Highlighter</div>
     <hr>
     <div id="highlighter-listing"></div>
+  </div>
+
+</div>
+<!-- <div id="popUpBck"></div> -->
+
+<div class="ui modal" id="new-highlighter-modal">
+  <i class="close icon"></i>
+  <div class="header">
+    Create new Highlighter
+  </div>
+  <div class="input content">
+    <div class="preview input"></div>
+    <div class="ui container center aligned">
+      <input class="ui input new-highlighter" type="text" name="name" placeholder="Highlighter name">
+    </div>
+    <div class="ui container center aligned">
+      <input class="ui input new-highlighter" type="color" name="color" value="#ff0000">
+      <input class="ui input new-highlighter" type="color" name="backgroundColor" value="#ff0000">
+    </div>
+  </div>
+  <div class="actions">
+    <div class="ui button">Cancel</div>
+    <input type="submit">
   </div>
 </div>
