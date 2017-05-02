@@ -16,3 +16,5 @@
 //= require bootstrap.min
 //= require semantic.min
 //= require_tree .
+
+$('.ui.dropdown').dropdown();

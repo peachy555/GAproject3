@@ -1,6 +1,27 @@
 $(document).ready(() => {
-  var pageContentHighlight = () => {
+  let pageContentHighlight = (highlights, highlighters) => {
+    _.each(highlights, (highlight) => {
+      highlighter = _.where(highlighters, {id: highlight.highlighter_id});
+      let $highlight = $('<span>')
+        .addClass('highlight')
+        .attr('highlight-id', highlight.id)
+        .attr('highlighter-id', highlight.highlighter_id)
+        .html(highlight.content)
+        .css({
+          'color': highlighter[0].color,
+          'backgroundColor': highlighter[0].backgroundColor
+        });
 
+      let contentsNoHighlight = $("#page-content > span:not([class])")
+      let spanContainHighlight = _.find(contentsNoHighlight, (span) => {
+        return $(span).html().indexOf(highlight.content) != -1 ? true : false;
+      });
+
+      let splitHighlight = $(spanContainHighlight).html().split(highlight.content);
+      let $before = $("<span>").html(splitHighlight[0]);
+      let $after = $("<span>").html(splitHighlight[1]);
+      $(spanContainHighlight).replaceWith($before.prop('outerHTML') + $highlight.prop('outerHTML') + $after.prop('outerHTML'));
+    });
   }
 
 
@@ -49,28 +70,7 @@ $(document).ready(() => {
         });
 
         // load highlights
-        _.each(data.highlights, (highlight) => {
-          highlighter = _.where(data.highlighters, {id: highlight.id});
-          let $highlight = $('<span>')
-            .addClass('highlight')
-            .attr('highlight-id', highlight.id)
-            .attr('highlighter-id', highlight.highlighter_id)
-            .html(highlight.content)
-            .css({
-              'color': highlighter[0].color,
-              'backgroundColor': highlighter[0].backgroundColor
-            });
-
-          let contentsNoHighlight = $("#page-content > span:not([class])")
-          let spanContainHighlight = _.find(contentsNoHighlight, (span) => {
-            return $(span).html().indexOf(highlight.content) != -1 ? true : false;
-          });
-
-          let splitHighlight = $(spanContainHighlight).html().split(highlight.content);
-          let $before = $("<span>").html(splitHighlight[0]);
-          let $after = $("<span>").html(splitHighlight[1]);
-          $(spanContainHighlight).replaceWith($before.prop('outerHTML') + $highlight.prop('outerHTML') + $after.prop('outerHTML'));
-        });
+        pageContentHighlight(data.highlights, data.highlighters);
       },
       error: function(e) {
         console.log(e);
@@ -86,8 +86,9 @@ $(document).ready(() => {
       "borderColor": "",
       "backgroundColor": ""
     });
-    $(".highlighter-list.active").removeClass("active");
     if(!$target.attr("class").match(/active/)){
+      $(".highlighter-list.active").removeClass("active");
+
       $target.addClass("active");
       $target.parent()
         .css({
@@ -95,6 +96,8 @@ $(document).ready(() => {
           "borderRadius": "6px",
           "backgroundColor": "black"
         });
+    } else {
+      $(".highlighter-list.active").removeClass("active");
     }
   });
 
@@ -118,7 +121,7 @@ $(document).ready(() => {
         if( ($startDOM.attr('class')!='highlight') && ($endDOM.attr('class')!='highlight') ) {
           let context = $startDOM.html();
           let splitHighlight = context.split(selection.toString());
-          debugger
+
           // Create highlight in Rails db
           $.ajax({
             url: "/highlights/new",

@@ -8,7 +8,10 @@
       <% @projects.each do |project| %>
         <div class="item">
           <div class="content project-list" project-id='<%= project.id %>'>
-            <div class="project-name"><%= project.name %></div>
+            <div>
+              <div class="project-new-page" project-id="<%= project.id %>">Add Page</div>
+              <div class="project-name"><%= project.name %></div>
+            </div>
             <% project.pages.each do |page| %>
             <%#binding.pry%>
               <div class="ui button content page-list" page-id='<%= page.id %>'>
@@ -24,6 +27,32 @@
   <div id="workspace" class="col-md-6">
     <div id="page-title">Select Page</div>
     <hr>
+    <div id="search-container">
+      <!-- two forms for different type of search, render ajax on the go -->
+      <div id="search-regex">
+
+      </div>
+
+      <div id="search-select">
+        <%= form_tag "/search_select", method: "post", class: "ui form" do %>
+          <select name="highlighters" class="ui multiple selection dropdown" multiple="">
+            <option value="">Highlighters</option>
+            <% @highlighters.each do |highlighter| %>
+              <option value="<%= highlighter.id %>"><%= highlighter.name %></option>
+            <% end %>
+          </select>
+
+          <select name="pages" class="ui multiple selection dropdown" multiple="">
+            <option value="">Pages</option>
+            <% @pages.each do |page| %>
+              <option value="<%= page.id %>"><%= page.title %></option>
+            <% end %>
+          </select>
+          <%= submit_tag "Search", class: "ui button" %>
+        <%end%>
+      </div>
+
+    </div>
     <div id="page-container">
       <span id="page-content"></span>
     </div>
@@ -54,7 +83,7 @@
     </div>
   </div>
   <div class="actions">
-    <div class="ui button">Cancel</div>
-    <input type="submit">
+    <div id="close-highlighter" class="ui button">Cancel</div>
+    <input id="submit-highlighter" class="ui button" type="submit">
   </div>
 </div>

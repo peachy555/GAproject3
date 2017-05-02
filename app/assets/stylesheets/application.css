@@ -66,3 +66,15 @@
    position: absolute;
    top: 0;
  }
+
+ #search-container {
+   visibility: hidden;
+ }
+
+ .multiple.selection {
+   width: 40px;
+ }
+
+ .project-new-page {
+   float: right;
+ }
