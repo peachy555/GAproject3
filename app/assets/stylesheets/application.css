@@ -48,9 +48,24 @@
    border-radius: 2px;
  }
 
- #page-title, #project-title, #highlighter-title {
+ #page-title, #project-title{
    height: 28px;
    font-size: 24px;
+ }
+
+ .right-menu.toggler.on {
+   height: 28px;
+   font-size: 24px;
+   color: black;
+ }
+
+ .right-menu.toggler.off {
+   font-size: 18px;
+   color: gray;
+ }
+
+ .field {
+   margin: 10px !important;
  }
 
  .project-name {
@@ -75,6 +90,11 @@
    width: 40px;
  }
 
- .project-new-page {
+ .new-page {
    float: right;
  }
+
+.ui.relaxed.divided.list {
+  height: 400px;
+  overflow: scroll;
+}

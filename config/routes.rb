@@ -8,6 +8,9 @@ Rails.application.routes.draw do
 
   resources "highlighters"
   post "highlights/new", to: "highlights#create"
+  post "highlighters/new", to: "highlighters#create"
+  post "projects/new", to: "projects#create"
+  post "pages/new", to: "pages#create"
   # get "highlighters/new", to: "highlighters#new", as: "highlighter_new"
 
   post "login", to: "sessions#create"

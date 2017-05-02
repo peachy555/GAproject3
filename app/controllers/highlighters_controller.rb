@@ -6,6 +6,8 @@ class HighlightersController < ApplicationController
   end
 
   def create
-    binding.pry
+    new_highlighter = Highlighter.create(name: params[:name], color: params[:color], backgroundColor: params[:backgroundColor], project_id: params[:project_id])
+
+    render json: new_highlighter
   end
 end

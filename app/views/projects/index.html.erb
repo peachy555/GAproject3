@@ -9,7 +9,7 @@
         <div class="item">
           <div class="content project-list" project-id='<%= project.id %>'>
             <div>
-              <div class="project-new-page" project-id="<%= project.id %>">Add Page</div>
+              <div class="new-page" project-id="<%= project.id %>">Add Page</div>
               <div class="project-name"><%= project.name %></div>
             </div>
             <% project.pages.each do |page| %>
@@ -27,63 +27,78 @@
   <div id="workspace" class="col-md-6">
     <div id="page-title">Select Page</div>
     <hr>
-    <div id="search-container">
-      <!-- two forms for different type of search, render ajax on the go -->
-      <div id="search-regex">
 
-      </div>
-
-      <div id="search-select">
-        <%= form_tag "/search_select", method: "post", class: "ui form" do %>
-          <select name="highlighters" class="ui multiple selection dropdown" multiple="">
-            <option value="">Highlighters</option>
-            <% @highlighters.each do |highlighter| %>
-              <option value="<%= highlighter.id %>"><%= highlighter.name %></option>
-            <% end %>
-          </select>
-
-          <select name="pages" class="ui multiple selection dropdown" multiple="">
-            <option value="">Pages</option>
-            <% @pages.each do |page| %>
-              <option value="<%= page.id %>"><%= page.title %></option>
-            <% end %>
-          </select>
-          <%= submit_tag "Search", class: "ui button" %>
-        <%end%>
-      </div>
-
-    </div>
     <div id="page-container">
       <span id="page-content"></span>
     </div>
   </div>
 
   <div id="highlighter-menu" class="col-md-3">
-    <div id="highlighter-title">Highlighter</div>
+    <div id="right-menu-title">
+      <span class="right-menu toggler on">Highlighter</span>
+      /
+      <span class="right-menu toggler off">Search</span>
+    </div>
     <hr>
     <div id="highlighter-listing"></div>
   </div>
 
 </div>
-<!-- <div id="popUpBck"></div> -->
 
 <div class="ui modal" id="new-highlighter-modal">
   <i class="close icon"></i>
   <div class="header">
-    Create new Highlighter
+    Create New Highlighter
   </div>
   <div class="input content">
     <div class="preview input"></div>
-    <div class="ui container center aligned">
-      <input class="ui input new-highlighter" type="text" name="name" placeholder="Highlighter name">
+    <div class="ui input container center aligned">
+      <input class="new-highlighter-input" type="text" name="name" placeholder="Highlighter name">
     </div>
     <div class="ui container center aligned">
-      <input class="ui input new-highlighter" type="color" name="color" value="#ff0000">
-      <input class="ui input new-highlighter" type="color" name="backgroundColor" value="#ff0000">
+      <input class="new-highlighter-input" type="color" name="color" value="#000000">
+      <input class="new-highlighter-input" type="color" name="backgroundColor" value="#ffff00">
     </div>
   </div>
   <div class="actions">
     <div id="close-highlighter" class="ui button">Cancel</div>
     <input id="submit-highlighter" class="ui button" type="submit">
+  </div>
+</div>
+
+<div class="ui modal" id="new-page-modal" project-id="">
+  <i class="close icon"></i>
+  <div class="header">
+    Create New Page
+  </div>
+
+  <form class="ui form">
+    <div class="field">
+      <label>Title</label>
+      <input id="new-page-title" type="text" name="title" placeholder="Page Title">
+    </div>
+    <div class="field">
+      <label>Content</label>
+      <textarea id="new-page-content" name="content" placeholder="Page Content..."></textarea>
+      <!-- <input type="text" name="last-name" placeholder="Last Name"> -->
+    </div>
+    <div class="field">
+      <div id="close-page" class="ui button">Cancel</div>
+      <input id="submit-page" class="ui button" type="submit">
+    </div>
+  </form>
+</div>
+
+<div class="ui modal" id="new-project-modal">
+  <i class="close icon"></i>
+  <div class="header">
+    Create New project
+  </div>
+  <div class="ui input content">
+    <input class="new-project-input" type="text" name="name" placeholder="Project name">
+  </div>
+  <div class="actions">
+    <div id="close-project" class="ui button">Cancel</div>
+    <input id="submit-project" class="ui button" type="submit">
   </div>
 </div>

@@ -10,4 +10,10 @@ class PagesController < ApplicationController
       highlighters: highlighters
     }
   end
+
+  def create
+    new_page = Page.create(title: params[:title], content: params[:content], project_id: params[:project_id])
+
+    render json: new_page
+  end
 end
