@@ -12,11 +12,10 @@ $(document).ready(() => {
   });
   // Ajax for new highlighter
   $(document).on('click', '#submit-highlighter', () => {
-    let newHLName = $('.new-highlighter-input[name="name"]').val();
-    let newHLColor = $('.new-highlighter-input[name="color"]').val();
-    let newHLBgColor = $('.new-highlighter-input[name="backgroundColor"]').val();
+    let newHLName = $('.highlighter.input.name').val();
+    let newHLColor = $('.highlighter.input.color').val();
+    let newHLBgColor = $('.highlighter.input.backgroundColor').val();
     let newHLProjectId = $('.page-list.primary').parent().attr('project-id');
-
     $.ajax({
       url: "/highlighters/new",
       method: "POST",
@@ -28,7 +27,21 @@ $(document).ready(() => {
         project_id: parseInt(newHLProjectId)
       },
       success: function(data) {
-        debugger;
+        $('#highlighter-listing')
+          .append(
+            $('<div>')
+              .addClass('highlighter-list-wrap')
+              .append(
+                $('<div>')
+                .addClass('ui button highlighter-list')
+                .html(data.name)
+                .attr('highlighter-id', data.id)
+                .css({
+                  "color": data.color,
+                  "backgroundColor": data.backgroundColor,
+                })
+              )
+          );
       },
       error: function(e) {
         console.log(e);

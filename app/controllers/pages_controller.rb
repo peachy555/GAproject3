@@ -16,4 +16,13 @@ class PagesController < ApplicationController
 
     render json: new_page
   end
+
+  def get_pages_min
+    render json: Project.find_by_id(params[:project_id]).pages.pluck(:id, :title)
+  end
+
+  def destroy
+    deleted_page = Page.find_by_id(params[:page_id]).destroy
+    render json: deleted_page
+  end
 end

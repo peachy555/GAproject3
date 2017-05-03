@@ -40,7 +40,6 @@ $(document).ready(() => {
         page_id: selectedPageId
       },
       success: function(data) {
-        console.log('page ajax success:', data);
         // load selected page content
         $("#page-title").empty().html(data.page.title);
         $("#page-content").empty();
