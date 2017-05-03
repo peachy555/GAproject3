@@ -17,4 +17,5 @@ Rails.application.routes.draw do
   post "users/new", to: "users#create", as: "signup"
 
   patch "projects", to: "projects#add_collab"
+  delete "projects/:project_id", to: "projects#destroy"
 end

@@ -9,10 +9,10 @@
           <div class="ui selection dropdown">
             <input type="hidden" name="project">
             <i class="dropdown icon"></i>
-            <div class="default text">Select project</div>
+            <div class="default text project">Select project</div>
             <div class="menu">
               <% @projects.each do |project| %>
-                <div class="item collab-project" data-value="<%= project.id %>"><%= project.name %></div>
+                <div class="item project collab-project" data-value="<%= project.id %>"><%= project.name %></div>
               <% end %>
             </div>
           </div>
@@ -30,10 +30,10 @@
         <div class="ui selection dropdown">
           <input type="hidden" name="project">
           <i class="dropdown icon"></i>
-          <div class="default text">Select project</div>
+          <div class="default text project">Select project</div>
           <div class="menu">
             <% @projects.each do |project| %>
-              <div class="item" data-value="<%= project.id %>"><%= project.name %></div>
+              <div class="item project delete-page project" data-value="<%= project.id %>"><%= project.name %></div>
             <% end %>
           </div>
         </div>
@@ -45,8 +45,33 @@
             <!-- <div class="item" data-value="<%# project.id %>"><%# project.name %></div> -->
           </div>
         </div>
-        <button class="ui button">
+        <button class="ui button delete-page submit">
           Delete Page
+        </button>
+      </div>
+
+      <div>
+        <div class="subtitle">Delete Highlighter</div>
+        <div class="ui selection dropdown">
+          <input type="hidden" name="project">
+          <i class="dropdown icon"></i>
+          <div class="default text project">Select project</div>
+          <div class="menu">
+            <% @projects.each do |project| %>
+              <div class="item delete-highlighter project" data-value="<%= project.id %>"><%= project.name %></div>
+            <% end %>
+          </div>
+        </div>
+        <div class="ui selection dropdown">
+          <input type="hidden" name="page">
+          <i class="dropdown icon"></i>
+          <div class="default text">Select highlighter</div>
+          <div class="menu">
+            <!-- <div class="item" data-value="<%# project.id %>"><%# project.name %></div> -->
+          </div>
+        </div>
+        <button class="ui button delete-highlighter submit">
+          Delete Highlighter
         </button>
       </div>
 
@@ -55,14 +80,14 @@
         <div class="ui selection dropdown">
           <input type="hidden" name="project">
           <i class="dropdown icon"></i>
-          <div class="default text">Select project</div>
+          <div class="default text project">Select project</div>
           <div class="menu">
             <% @projects.each do |project| %>
-              <div class="item" data-value="<%= project.id %>"><%= project.name %></div>
+              <div class="item project delete-project select" data-value="<%= project.id %>"><%= project.name %></div>
             <% end %>
           </div>
         </div>
-        <button class="ui button">
+        <button class="ui button delete-project submit">
           Delete Project
         </button>
       </div>

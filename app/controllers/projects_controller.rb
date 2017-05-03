@@ -19,7 +19,12 @@ class ProjectsController < ApplicationController
     if !(project.nil? || new_collab.nil?)
       project.users << new_collab
     end
-    
+
     render json: project
+  end
+
+  def destroy
+    destroyed_project = Project.find_by_id(params[:project_id]).destroy
+    render json: destroyed_project
   end
 end
