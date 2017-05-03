@@ -1,0 +1,108 @@
+<div class="wrapper">
+  <div id="page-header">Settings</div>
+  <div class="ui relaxed divided list">
+    <div class="item">
+      <div class="settings menu items title">Manage Your Projects</div>
+      <div>
+        <div class="subtitle">Add Collaborator</div>
+        <div>
+          <div class="ui selection dropdown">
+            <input type="hidden" name="project">
+            <i class="dropdown icon"></i>
+            <div class="default text">Select project</div>
+            <div class="menu">
+              <% @projects.each do |project| %>
+                <div class="item collab-project" data-value="<%= project.id %>"><%= project.name %></div>
+              <% end %>
+            </div>
+          </div>
+        <div class="ui input">
+          <input class="add-collab email" type="text" placeholder="Collaborator email...">
+        </div>
+        <button class="ui button add-collab submit">
+          Add Collaborator
+        </button>
+        </div>
+      </div>
+
+      <div>
+        <div class="subtitle">Delete Page</div>
+        <div class="ui selection dropdown">
+          <input type="hidden" name="project">
+          <i class="dropdown icon"></i>
+          <div class="default text">Select project</div>
+          <div class="menu">
+            <% @projects.each do |project| %>
+              <div class="item" data-value="<%= project.id %>"><%= project.name %></div>
+            <% end %>
+          </div>
+        </div>
+        <div class="ui selection dropdown">
+          <input type="hidden" name="page">
+          <i class="dropdown icon"></i>
+          <div class="default text">Select page</div>
+          <div class="menu">
+            <!-- <div class="item" data-value="<%# project.id %>"><%# project.name %></div> -->
+          </div>
+        </div>
+        <button class="ui button">
+          Delete Page
+        </button>
+      </div>
+
+      <div>
+        <div class="subtitle">Delete Project</div>
+        <div class="ui selection dropdown">
+          <input type="hidden" name="project">
+          <i class="dropdown icon"></i>
+          <div class="default text">Select project</div>
+          <div class="menu">
+            <% @projects.each do |project| %>
+              <div class="item" data-value="<%= project.id %>"><%= project.name %></div>
+            <% end %>
+          </div>
+        </div>
+        <button class="ui button">
+          Delete Project
+        </button>
+      </div>
+
+    </div>
+
+    <div class="item">
+      <div class="settings menu items title">Manage Your Account</div>
+
+      <div>
+        <div class="subtitle">Change Password</div>
+        <div class="ui input">
+          <input type="password" placeholder="Current email...">
+        </div>
+        <div class="ui input">
+          <input type="password" placeholder="New email...">
+        </div>
+        <div class="ui input">
+          <input type="password" placeholder="Verify email...">
+        </div>
+        <button class="ui button">
+          Update Password
+        </button>
+      </div>
+
+      <div>
+        <div class="subtitle">Change Your Name</div>
+        <div class="ui input">
+          <input type="text" placeholder="New name...">
+        </div>
+        <button class="ui button">
+          Update Name
+        </button>
+      </div>
+    </div>
+    <!-- <div class="item">
+      <div class="settings menu items title">Customize Your Workspace</div>
+      <div>
+        <div class="subtitle">Toggle with:</div>
+      </div>
+    </div> -->
+  </div>
+</div>

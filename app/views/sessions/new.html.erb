@@ -1,20 +1,39 @@
-<div id="main-container" class="ui inverted vertical masthead center aligned segment">
-  <div class="ui text container">
+<div class="ui inverted vertical masthead center aligned segment login main-container">
+  <div class="ui text container login-wrap">
     <div id="title"><h1>Highlight</h1></div>
     <div id="tagline"><h2>Highlighting Research Tool</h2></div>
     <div id="login">
       <%= form_tag login_path, method: "post" do %>
         <div id="login-input">
-          <div class="ui input">
+          <div class="ui input login">
             <input id="login-email" name="email" type="text" placeholder="Email"/>
           </div>
-          <div class="ui input">
+          <div class="ui input login">
             <input id="login-password" name="password" type="password" placeholder="Password"/>
           </div>
+          <input id="login-button" type="submit" class="ui inverted button" value="Log in"/>
         </div>
-
-        <input id="login-button" type="submit" class="ui inverted button" value="Log in"/>
       <% end %>
     </div>
+  </div>
+</div>
+
+<div class="ui modal" id="new-user-modal">
+  <i class="close icon"></i>
+  <div class="header">
+    Sign up
+  </div>
+  <div class="ui input content">
+    <input class="new-user-input" type="text" name="name" placeholder="Name">
+  </div>
+  <div class="ui input content">
+    <input class="new-user-input" type="email" name="email" placeholder="Email">
+  </div>
+  <div class="ui input content">
+    <input class="new-user-input" type="password" name="password" placeholder="Password">
+  </div>
+  <div class="actions">
+    <div id="close-user" class="ui button">Cancel</div>
+    <input id="submit-user" class="ui button primary" type="submit">
   </div>
 </div>

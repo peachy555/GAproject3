@@ -1,4 +1,4 @@
-<div id="main-container">
+<div class="projects main-container">
 
   <div id="project-menu" class="col-md-3">
     <div id="project-title">Projects:</div>
@@ -35,9 +35,9 @@
 
   <div id="highlighter-menu" class="col-md-3">
     <div id="right-menu-title">
-      <span class="right-menu toggler on">Highlighter</span>
+      <span class="right-menu toggler on highlighter">Highlighter</span>
       /
-      <span class="right-menu toggler off">Search</span>
+      <span class="right-menu toggler off search">Search</span>
     </div>
     <hr>
     <div id="highlighter-listing"></div>
@@ -52,17 +52,23 @@
   </div>
   <div class="input content">
     <div class="preview input"></div>
-    <div class="ui input container center aligned">
-      <input class="new-highlighter-input" type="text" name="name" placeholder="Highlighter name">
+    <div class="ui small input container center aligned">
+      <input class="highlighter input name" type="text" name="name" placeholder="Highlighter name">
     </div>
-    <div class="ui container center aligned">
-      <input class="new-highlighter-input" type="color" name="color" value="#000000">
-      <input class="new-highlighter-input" type="color" name="backgroundColor" value="#ffff00">
+    <div class="ui container center aligned color">
+      <div class="highlighter color input-wrap">
+        <label for="color">Text Color</label>
+        <input class="new-highlighter-input color" type="color" name="color" value="#000000">
+      </div>
+      <div class="highlighter color input-wrap">
+        <label for="backgroundColor">Background Color</label>
+        <input class="highlighter input backgroundColor" type="color" name="backgroundColor" value="#ffff00">
+      </div>
     </div>
   </div>
   <div class="actions">
     <div id="close-highlighter" class="ui button">Cancel</div>
-    <input id="submit-highlighter" class="ui button" type="submit">
+    <input id="submit-highlighter" class="ui button primary" type="submit">
   </div>
 </div>
 
@@ -84,7 +90,7 @@
     </div>
     <div class="field">
       <div id="close-page" class="ui button">Cancel</div>
-      <input id="submit-page" class="ui button" type="submit">
+      <input id="submit-page" class="ui button primary" type="submit">
     </div>
   </form>
 </div>
@@ -99,6 +105,6 @@
   </div>
   <div class="actions">
     <div id="close-project" class="ui button">Cancel</div>
-    <input id="submit-project" class="ui button" type="submit">
+    <input id="submit-project" class="ui button primary" type="submit">
   </div>
 </div>

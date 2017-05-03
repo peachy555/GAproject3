@@ -38,6 +38,37 @@ $(document).ready(() => {
     $('#new-highlighter-modal').modal('hide');
   });
 
+  // link to create new user
+  $(document).on('click', '#new-user', () => {
+    $('#new-user-modal').modal('show');
+  });
+
+  $(document).on('click', '#close-user', () => {
+    $('#new-user-modal').modal('hide');
+  });
+  $(document).on('click', '#submit-user', () => {
+    let newUserName = $('.new-user-input[name="name"]').val();
+    let newUserEmail = $('.new-user-input[name="email"]').val();
+    let newUserPassword = $('.new-user-input[name="password"]').val();
+
+    $.ajax({
+      url: "/users/new",
+      method: "POST",
+      data: {
+        format: "json",
+        name: newUserName,
+        email: newUserEmail,
+        password: newUserPassword
+      },
+      success: function(data) {
+      },
+      error: function(e) {
+        console.log(e);
+      }
+    });
+
+    $('#new-user-modal').modal('hide');
+  });
 
   // link to create new page
   $(document).on('click', '.new-page', (event) => {
@@ -90,7 +121,6 @@ $(document).ready(() => {
   });
 
   $(document).on('click', '#submit-project', () => {
-    // some ajax for new project
     let newProjName = $('.new-project-input').val()
     $.ajax({
       url: "/projects/new",
@@ -124,19 +154,25 @@ $(document).ready(() => {
                 )
              )
           )
-        let newProject = $('<div>')
-          .addClass('ui button content project-list')
-          .attr('page-id', data.id)
-          .html(data.title)
-          .appendTo($(`div.content.project-list[project-id="${data.project_id}"]`));
-        console.log('new project created');
+        // Reset page workspace
+        $('#page-title').html('Select Page');
+        $('#page-content').empty();
+        // Reset right menu
+        $('#highlighter-listing').empty();
+        $('.highlighter.right-menu.toggler')
+          .removeClass('off')
+          .addClass('on');
+        $('.search.right-menu.toggler')
+          .removeClass('on')
+          .addClass('off');
+        // Remove 'selected page'
+        $('.ui.button.content.page-list.primary').removeClass('primary');
       },
       error: function(e) {
         console.log(e);
       }
     });
     $('#new-project-modal').modal('hide');
-    $('#page-content').empty();
   });
 
   //==============================================================================

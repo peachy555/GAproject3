@@ -10,6 +10,9 @@
 
   <body>
     <%= render "includes/top_menu" %>
-    <%= yield %>
+    <div>
+      <%= render "includes/flash_notices" %>
+      <%= yield %>
+    </div>
   </body>
 </html>

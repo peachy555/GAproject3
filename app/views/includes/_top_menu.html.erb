@@ -1,12 +1,22 @@
 <div class="ui inverted vertical masthead center aligned segment">
   <div id="top-menu-inner-cont" class="ui container">
     <div class="ui large secondary inverted pointing menu">
-      <a href="#" class="item">Home</a>
+      <div class="top-menu item left">Highlight</div>
       <div class="right item">
         <!-- <a href="#" class="item">Username</a> -->
-
-        <%= link_to "Log out", logout_path, class: "ui inverted button", method: "delete" %>
-        <%# link_to "Sign up", signup_path, class: "ui inverted button" %>
+        <% if @current_user.nil? %>
+          <div id="new-user" class="ui inverted button">Sign Up</div>
+        <% else %>
+          <div class="top-menu item"><%= @current_user.name %></div>
+          <div id="page-change-wrap">
+            <% if request.env['PATH_INFO'] == '/workspace' %>
+              <%= link_to "Settings", settings_path, class: "ui inverted button page-toogle" %>
+            <% elsif request.env['PATH_INFO'] == '/settings' %>
+              <%= link_to "Workspace", workspace_path, class: "ui inverted button page-toogle" %>
+            <% end %>
+          </div>
+          <%= link_to "Log out", logout_path, class: "ui inverted button", method: "delete" %>
+        <% end %>
       </div>
     </div>
   </div>

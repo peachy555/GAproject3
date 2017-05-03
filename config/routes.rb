@@ -11,8 +11,10 @@ Rails.application.routes.draw do
   post "highlighters/new", to: "highlighters#create"
   post "projects/new", to: "projects#create"
   post "pages/new", to: "pages#create"
-  # get "highlighters/new", to: "highlighters#new", as: "highlighter_new"
 
   post "login", to: "sessions#create"
   delete "logout", to: "sessions#destroy", as: "logout"
+  post "users/new", to: "users#create", as: "signup"
+
+  patch "projects", to: "projects#add_collab"
 end

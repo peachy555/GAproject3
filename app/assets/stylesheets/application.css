@@ -16,11 +16,13 @@
  *= require_tree .
  *= require_self
  */
-
- #main-container {
-   margin-top: 20px;
+ .main-container {
    width: 100vw;
    height: 100vh;
+ }
+
+ .projects.main-container {
+   margin-top: 20px;
  }
 
  h1 {
@@ -39,9 +41,9 @@
    width: 100%;
  }
 
-#new-highlighter {
-  margin: 5px 0;
-}
+ #new-highlighter {
+   margin: 5px 0;
+ }
 
  .highlighter-list-wrap {
    border: 5px solid white;
@@ -94,7 +96,74 @@
    float: right;
  }
 
+ .ui.input.content {
+   display: inline-block;
+   width: 210px;
+ }
+
+ #page-change-wrap {
+   display: inline-block;
+   width: 150px
+ }
+
+ .ui.relaxed.divided.list {
+   height: 400px;
+   overflow: scroll;
+ }
+
+ .login-wrap {
+   margin: 70px;
+ }
+
+ #login-button {
+   margin-left: 20px;
+   height: 45px;
+ }
+
+ .login.input {
+   margin: 5px;
+ }
+
+ .highlighter.color.input-wrap {
+   display: inline-block;
+   margin: 10px 5px;
+ }
+
+ .wrapper {
+   margin: 25px 40px;
+ }
+
 .ui.relaxed.divided.list {
-  height: 400px;
-  overflow: scroll;
+  height: 500px !important;
 }
+
+#page-header {
+  height: 42px;
+  font-size: 40px;
+}
+
+.settings.title {
+  margin: 5px 0;
+  font-size: 26px;
+  height: 28px;
+}
+
+.subtitle {
+  margin: 5px 0;
+  font-size: 18px;
+  height: 20px;
+}
+.top-menu.item.left {
+  height: 32px;
+  font-size: 32px;
+}
+
+.top-menu.item{
+  height: 20px;
+  font-size: 18px;
+  margin-right: 20px;
+}
+
+ .page-toogle {
+   float: right;
+ }
