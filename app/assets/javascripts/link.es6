@@ -130,8 +130,9 @@ $(document).ready(() => {
       },
       success: function(data) {
         // Add new page list-item into project menu (left)
+        $(".page-list.primary").removeClass("primary");
         let newPage = $('<div>')
-          .addClass('ui button content page-list')
+          .addClass('ui button content page-list primary')
           .attr('page-id', data.id)
           .html(data.title)
           .appendTo($(`div.content.project-list[project-id="${data.project_id}"]`));
@@ -139,12 +140,9 @@ $(document).ready(() => {
         window.currProject.pages.push(data);
         window.currPage = data;
         // load selected page content
-        debugger
         $("#page-title").empty().html(window.currPage.title);
-        debugger
         $("#page-content").empty();
         $("<span>").html(window.currPage.content).appendTo("#page-content");
-        debugger
       },
       error: function(e) {
         console.log(e);
