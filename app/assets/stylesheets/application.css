@@ -11,8 +11,8 @@
  * It is generally better to create a new file per style scope.
  *
  *= require bootstrap.min
- *= require semantic.min
- *= require icon.min
+ *= require semantic
+ *= require icon
  *= require_tree .
  *= require_self
  */
@@ -218,5 +218,5 @@
  }
 
  #submit-regex-search {
-   margin-left: 25px;
+   margin-left: 8px;
  }
