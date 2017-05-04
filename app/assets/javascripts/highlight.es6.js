@@ -314,6 +314,7 @@ $(document).ready(() => {
     let highlight = _.find(window.currPage.highlights, (highlight) => {
     	return (highlight.id == highlightId);
     });
+    debugger
 
     $('#note-display').empty();
     if(highlight.notes.length != 0) {

@@ -20,7 +20,4 @@
 $(document).ready(() => {
   $('.ui.dropdown').dropdown();
 
-//   $('#multi-select')
-//   .dropdown()
-// ;
 })
