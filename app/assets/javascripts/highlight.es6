@@ -296,6 +296,7 @@ $(document).ready(() => {
             let $after = $("<span>").html(splitHighlight[1]);
 
             $startDOM.replaceWith($before.prop('outerHTML') + $highlight.prop('outerHTML') + $after.prop('outerHTML'));
+            window.currProject.dataChange = true
           },
           error: function(e) {
             console.log(e);
@@ -340,9 +341,7 @@ $(document).ready(() => {
             .html('Currently no notes...')
         );
     }
-
     $('#note-modal').modal('show');
-
   });
 
   // Right menu toggler, between 'Search' and 'Highlighter'
