@@ -10,7 +10,7 @@ $(document).ready(() => {
   $(document).on('click', '#close-highlighter', () => {
     $('#new-highlighter-modal').modal('hide');
   });
-
+  // Highlighter create preview
   $(document).on('keyup', '.highlighter.input.name', (event) => {
     $('.preview.input.highlighter').html(event.target.value);
   });
@@ -58,6 +58,8 @@ $(document).ready(() => {
                 })
               )
           );
+        // Update current project with new highlighter
+        window.currProject.highlighters.push(data);
       },
       error: function(e) {
         console.log(e);
@@ -127,11 +129,22 @@ $(document).ready(() => {
         project_id: newPageProjId
       },
       success: function(data) {
+        // Add new page list-item into project menu (left)
         let newPage = $('<div>')
           .addClass('ui button content page-list')
           .attr('page-id', data.id)
           .html(data.title)
           .appendTo($(`div.content.project-list[project-id="${data.project_id}"]`));
+        // Update current project with new page
+        window.currProject.pages.push(data);
+        window.currPage = data;
+        // load selected page content
+        debugger
+        $("#page-title").empty().html(window.currPage.title);
+        debugger
+        $("#page-content").empty();
+        $("<span>").html(window.currPage.content).appendTo("#page-content");
+        debugger
       },
       error: function(e) {
         console.log(e);
@@ -218,7 +231,20 @@ $(document).ready(() => {
         highlight_id: newNoteHLId,
       },
       success: function(data) {
-        debugger
+        $('#new-note-content').val('');
+        let highlighter = _.find(window.currProject.highlighters, (highlighter) => {
+        	return highlighter.id === data.highlight.highlighter_id
+        });
+        // Update currProject
+        let highlightProj = _.find(highlighter.highlights, (highlight) => {
+          	return highlight.id === data.highlight_id
+          });
+        highlightProj.notes.push(data);
+        // Update currPage
+        let highlightPage = _.find(window.currPage.highlights, (highlight) => {
+          	return highlight.id === data.highlight_id
+          });
+        highlightPage.notes.push(data);
       },
       error: function(e) {
         console.log(e);
@@ -227,24 +253,4 @@ $(document).ready(() => {
 
     $('#note-modal').modal('hide');
   });
-
-  //==============================================================================
-  // End of modal related handlers
-  //==============================================================================
-
-  // Right menu toggler, between 'Search' and 'Highlighter'
-  $(document).on('click', '.right-menu.toggler.off', (event) => {
-    // Toogle menu title
-    $('.right-menu.toggler.on').removeClass('on').addClass('off');
-    $(event.target).removeClass('off').addClass('on');
-
-    // Display selected menu
-    let selector = $(event.target).html();
-    if(selector === 'Search') {
-
-    } else {
-
-    }
-  });
-
 });

@@ -2,19 +2,50 @@ class PagesController < ApplicationController
   def get_content
     page = Page.find_by_id(params[:page_id])
     highlighters = page.project.highlighters
+    project = Project.find_by_id(Page.find_by_id(params[:page_id]).project.id)
 
-    render json: {
-      page: page.to_json(
-        include: {
-          highlights: {
-            include: {
-              notes: {}
+    render json: project.to_json(
+      include: {
+        pages: {
+          include: {
+            highlights: {
+              include: {
+                notes: {}
+              }
+            }
+          }
+        },
+        highlighters: {
+          include: {
+            highlights: {
+              include: {
+                notes: {}
+              }
             }
           }
         }
-      ),
-      highlighters: highlighters
-    }
+      }
+    )
+    # render json: {
+    #   page: page.to_json(
+    #     include: {
+    #       highlights: {
+    #         include: {
+    #           notes: {}
+    #         }
+    #       }
+    #     }
+    #   ),
+    #   highlighters: highlighters.to_json(
+    #     include: {
+    #       highlights: {
+    #         include: {
+    #           notes: {}
+    #         }
+    #       }
+    #     }
+    #   )
+    # }
   end
 
   def create

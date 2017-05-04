@@ -182,3 +182,41 @@
  .note.item {
    padding: 5px 20px;
  }
+
+ .search-results.item.note {
+   background-color: white;
+   color: black;
+ }
+
+ #search-highlighter-regex-input {
+   width: 300px;
+   padding: 0 !important;
+   margin: 5px 0;
+   display: inline-block;
+ }
+
+ #search-multi-dropdown {
+   margin: 5px 0;
+ }
+
+ #submit-multi-dropdown-search {
+   margin: 5px 0;
+ }
+
+ .search.regex {
+   width: 300px;
+ }
+
+ .ui.selection.dropdown.multiple {
+   width: 100%;
+ }
+
+ #search-result-title {
+   height: 24px;
+   font-size: 24px;
+   margin: 5px 0;
+ }
+
+ #submit-regex-search {
+   margin-left: 25px;
+ }

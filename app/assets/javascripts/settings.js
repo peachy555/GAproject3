@@ -61,6 +61,7 @@ $(document).ready(() => {
       }
     });
   });
+  
   // Delete page
   $(document).on('click', '.ui.button.delete-page.submit', () => {
     let delPageId = $('.item.delete-page.page.selected').attr('data-value');
@@ -77,7 +78,6 @@ $(document).ready(() => {
       }
     });
   });
-
 
   // Delete highlighter
   // Render highlighters of selected project
@@ -104,6 +104,7 @@ $(document).ready(() => {
       }
     });
   });
+
   // Delete highlighter
   $(document).on('click', '.ui.button.delete-highlighter.submit', () => {
     let delPageId = $('.item.delete-highlighter.highlighter.selected').attr('data-value');
@@ -120,7 +121,6 @@ $(document).ready(() => {
       }
     });
   });
-
 
   // Delete project
   $(document).on('click', '.delete-project.submit', () => {
