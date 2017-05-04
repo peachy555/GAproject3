@@ -1,6 +1,7 @@
 $(document).ready(() => {
   // display dropdown search
   let displayHLSearch = (searchResults) => {
+    debugger
     $('#seach-results-wrap').empty();
     let $searchResultsWrap = $('#seach-results-wrap')
       .append(
@@ -84,8 +85,29 @@ $(document).ready(() => {
     displayHLSearch(searchResults);
   }); // end of search with dropdowns
 
+  let matchRegEx = (inputString, matchParam) => {
+    var regex = new RegExp( matchParam, 'g' );
+    return inputString.match(regex) ? true : false;
+  }
   // search with regEx
   $(document).on('click', '#submit-regex-search', () => {
     let searchInput = $('.search.regex.highlighter.input').val();
+    let searchResults = [];
+    _.each(window.currProject.highlighters, (highlighter) => {
+      let resultHighlighter = {
+        highlighter: highlighter,
+        highlights: []
+      }
+      _.each(highlighter.highlights, (highlight) => {
+        if(matchRegEx(highlight.content, searchInput)) {
+          resultHighlighter.highlights.push({
+            highlight: highlight,
+            notes: highlight.notes
+          });
+        }
+      });
+      searchResults.push(resultHighlighter);
+    });
+    displayHLSearch(searchResults);
   });
 })

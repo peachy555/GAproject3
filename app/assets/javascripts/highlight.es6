@@ -2,7 +2,7 @@ $(document).ready(() => {
   // Highlight page content
   let pageContentHighlight = (highlights, highlighters) => {
     _.each(highlights, (highlight) => {
-      highlighter = _.where(highlighters, {id: highlight.highlighter_id});
+      let highlighter = _.where(highlighters, {id: highlight.highlighter_id});
       let $highlight = $('<span>')
         .addClass('highlight')
         .attr('highlight-id', highlight.id)
@@ -314,7 +314,6 @@ $(document).ready(() => {
     let highlight = _.find(window.currPage.highlights, (highlight) => {
     	return (highlight.id == highlightId);
     });
-    debugger
 
     $('#note-display').empty();
     if(highlight.notes.length != 0) {
