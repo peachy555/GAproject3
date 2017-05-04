@@ -61,7 +61,7 @@ $(document).ready(() => {
       }
     });
   });
-  
+
   // Delete page
   $(document).on('click', '.ui.button.delete-page.submit', () => {
     let delPageId = $('.item.delete-page.page.selected').attr('data-value');
