@@ -17,7 +17,7 @@
 //= require semantic.min
 //= require_tree .
 
-$(document).ready(() => {
+$(document).ready(function () {
   $('.ui.dropdown').dropdown();
 
 })
