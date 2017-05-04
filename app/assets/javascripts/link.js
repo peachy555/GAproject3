@@ -10,6 +10,22 @@ $(document).ready(() => {
   $(document).on('click', '#close-highlighter', () => {
     $('#new-highlighter-modal').modal('hide');
   });
+
+  $(document).on('keyup', '.highlighter.input.name', (event) => {
+    $('.preview.input.highlighter').html(event.target.value);
+  });
+
+  $(document).on('change', '.highlighter.input.color', (event) => {
+    $('.preview.input.highlighter').css({
+      'color': event.target.value
+    });
+  });
+
+  $(document).on('change', '.highlighter.input.backgroundColor', (event) => {
+    $('.preview.input.highlighter').css({
+      'backgroundColor': event.target.value
+    });
+  });
   // Ajax for new highlighter
   $(document).on('click', '#submit-highlighter', () => {
     let newHLName = $('.highlighter.input.name').val();
@@ -24,7 +40,7 @@ $(document).ready(() => {
         name: newHLName,
         color: newHLColor,
         backgroundColor: newHLBgColor,
-        project_id: parseInt(newHLProjectId)
+        project_id: newHLProjectId
       },
       success: function(data) {
         $('#highlighter-listing')
@@ -108,7 +124,7 @@ $(document).ready(() => {
         format: "json",
         title: newPageTitle,
         content: newPageContent,
-        project_id: parseInt(newPageProjId)
+        project_id: newPageProjId
       },
       success: function(data) {
         let newPage = $('<div>')
@@ -186,6 +202,30 @@ $(document).ready(() => {
       }
     });
     $('#new-project-modal').modal('hide');
+  });
+
+  // new note
+  $(document).on('click', '#submit-note', (event) => {
+    event.preventDefault();
+    let newNoteContent = $('#new-note-content').val();
+    let newNoteHLId = $('#note-modal').attr('highlight-id');
+    $.ajax({
+      url: "/notes/new",
+      method: "POST",
+      data: {
+        format: "json",
+        content: newNoteContent,
+        highlight_id: newNoteHLId,
+      },
+      success: function(data) {
+        debugger
+      },
+      error: function(e) {
+        console.log(e);
+      }
+    });
+
+    $('#note-modal').modal('hide');
   });
 
   //==============================================================================

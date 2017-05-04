@@ -51,8 +51,8 @@
     Create New Highlighter
   </div>
   <div class="input content">
-    <div class="preview input"></div>
-    <div class="ui small input container center aligned">
+    <div class="preview input highlighter center aligned">Highlighter name</div>
+    <div class="ui small input container center aligned highlighter">
       <input class="highlighter input name" type="text" name="name" placeholder="Highlighter name">
     </div>
     <div class="ui container center aligned color">
@@ -107,4 +107,24 @@
     <div id="close-project" class="ui button">Cancel</div>
     <input id="submit-project" class="ui button primary" type="submit">
   </div>
+</div>
+
+<div class="ui modal" id="note-modal" highlight-id="">
+  <i class="close icon"></i>
+  <div class="header">
+    <span>Notes for </span>
+    <span class="highlight-name note"></span>
+  </div>
+  <div id="note-display"></div>
+  <form class="ui form">
+    <div class="field">
+      <label>Note</label>
+      <textarea id="new-note-content" name="content" placeholder="Note..."></textarea>
+      <!-- <input type="text" name="last-name" placeholder="Last Name"> -->
+    </div>
+    <div class="field">
+      <div id="close-note" class="ui button">Cancel</div>
+      <input id="submit-note" class="ui button primary" type="submit">
+    </div>
+  </form>
 </div>

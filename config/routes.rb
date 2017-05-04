@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   post "highlighters/new", to: "highlighters#create"
   post "projects/new", to: "projects#create"
   post "pages/new", to: "pages#create"
+  post "notes/new", to: "notes#create"
 
   # Session related
   post "login", to: "sessions#create"

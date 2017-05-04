@@ -167,3 +167,18 @@
  .page-toogle {
    float: right;
  }
+
+ .preview.input.highlighter {
+   text-align: center;
+   height: 30px;
+   width: 200px;
+   background-color: yellow;
+ }
+
+ .ui.small.input.container.highlighter {
+   width: 200px;
+ }
+
+ .note.item {
+   padding: 5px 20px;
+ }
