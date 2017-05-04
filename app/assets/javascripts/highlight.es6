@@ -366,6 +366,32 @@ $(document).ready(() => {
   });
 
   let refreshWorkspace = setInterval(() => {
+    let selectedPageId = window.currPage.id;
+    debugger
+    $.ajax({
+      url: "/get_content",
+      method: "GET",
+      data: {
+        format: "json",
+        page_id: selectedPageId
+      },
+      success: function(data) {
+        if(data != window.currProject) {
+          window.currProject = data;
+
+          loadWorkspaceContent();
+        }
+        // window.currProject = data;
+        // _.find(window.currProject.pages, (page) => {
+        //   if(page.id === parseInt(selectedPageId)) {
+        //     window.currPage = page
+        //   }
+        // });
+      },
+      error: function(e) {
+        console.log(e);
+      }
+    });
     loadWorkspaceContent();
   }, refreshRate);
 });
