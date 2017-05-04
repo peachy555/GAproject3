@@ -371,8 +371,8 @@ $(document).ready(() => {
     if(!window.currPage) return;
 
     // Get length of all data
-    let pageCount = window.currProject.pages.length
-    let highlighterCount = window.currProject.highlighters.length
+    let pageCount = window.currProject.pages.length;
+    let highlighterCount = window.currProject.highlighters.length;
     let highlightCount = 0;
     _.each(window.currProject.highlighters, (highlighter) => {
       highlightCount += highlighter.highlights.length;
@@ -383,7 +383,7 @@ $(document).ready(() => {
         noteCount += highlight.notes.length;
       })
     });
-
+    console.log(pageCount, highlighterCount, highlightCount, noteCount);
     $.ajax({
       url: "/data_change",
       method: "GET",
