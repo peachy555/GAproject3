@@ -396,6 +396,7 @@ $(document).ready(() => {
         note_count: noteCount
       },
       success: function(data) {
+        console.log('ajax success');
         for(let i = 0; i < data.keys.length; i++) {
           if(data.keys[i] === 'page') {
             window.currProject.pages.push(data.data[i]);
