@@ -1,4 +1,25 @@
 $(document).ready(() => {
+  let refreshRate = 1000;
+  // Load workspace content
+  let loadWorkspaceContent = () => {
+    // load selected page content
+    $("#page-title").empty().html(window.currPage.title);
+    $("#page-content").empty();
+    $("<span>").html(window.currPage.content).appendTo("#page-content");
+
+    // load highlighters
+    $("#highlighter-listing").empty();
+    // new highlighter button
+    loadHighlighters();
+
+    // load highlights
+    pageContentHighlight(window.currPage.highlights, window.currProject.highlighters);
+
+    // reset right menu to highlighter
+    $('.right-menu.toggler.search').removeClass('on').addClass('off');
+    $('.right-menu.toggler.highlighter').removeClass('off').addClass('on');
+  }
+
   // Highlight page content
   let pageContentHighlight = (highlights, highlighters) => {
     _.each(highlights, (highlight) => {
@@ -197,22 +218,7 @@ $(document).ready(() => {
             window.currPage = page
           }
         });
-        // load selected page content
-        $("#page-title").empty().html(window.currPage.title);
-        $("#page-content").empty();
-        $("<span>").html(window.currPage.content).appendTo("#page-content");
-
-        // load highlighters
-        $("#highlighter-listing").empty();
-        // new highlighter button
-        loadHighlighters();
-
-        // load highlights
-        pageContentHighlight(window.currPage.highlights, window.currProject.highlighters);
-
-        // reset right menu to highlighter
-        $('.right-menu.toggler.search').removeClass('on').addClass('off');
-        $('.right-menu.toggler.highlighter').removeClass('off').addClass('on');
+        loadWorkspaceContent();
       },
       error: function(e) {
         console.log(e);
@@ -358,4 +364,8 @@ $(document).ready(() => {
       }
     }
   });
+
+  let refreshWorkspace = setInterval(() => {
+    loadWorkspaceContent();
+  }, refreshRate);
 });
