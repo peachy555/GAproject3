@@ -60,7 +60,6 @@ $(document).ready(() => {
           );
         // Update current project with new highlighter
         window.currProject.highlighters.push(data);
-        window.currProject.dataChange = true;
       },
       error: function(e) {
         console.log(e);
@@ -150,7 +149,6 @@ $(document).ready(() => {
       }
     });
     $('#new-page-modal').modal('hide');
-    window.currProject.dataChange = true;
   });
 
   // link to create new project
@@ -209,7 +207,6 @@ $(document).ready(() => {
           .addClass('off');
         // Remove 'selected page'
         $('.ui.button.content.page-list.primary').removeClass('primary');
-        window.currProject.dataChange = true;
       },
       error: function(e) {
         console.log(e);
@@ -246,7 +243,6 @@ $(document).ready(() => {
           	return highlight.id === data.highlight_id
           });
         highlightPage.notes.push(data);
-        window.currProject.dataChange = true;
       },
       error: function(e) {
         console.log(e);

@@ -45,7 +45,19 @@ $(document).ready(() => {
       $(spanContainHighlight).replaceWith($before.prop('outerHTML') + $highlight.prop('outerHTML') + $after.prop('outerHTML'));
     });
   }
-
+  let loadSingleHighlighter = (highlighter) => {
+    let $highlighterWrap = $('<div>')
+      .addClass('highlighter-list-wrap')
+      .appendTo("#highlighter-listing");
+    let $highlighter = $('<div>')
+      .addClass('ui button highlighter-list')
+      .html(highlighter.name)
+      .attr('highlighter-id', highlighter.id)
+      .css({
+        "color": highlighter.color,
+        "backgroundColor": highlighter.backgroundColor,
+      }).appendTo($highlighterWrap);
+  }
   // Right menu related functions
   let loadHighlighters = () => {
     $("<div>")
@@ -55,17 +67,7 @@ $(document).ready(() => {
       .appendTo("#highlighter-listing");
     // display each highlighters
     _.each(window.currProject.highlighters, (highlighter) => {
-      let $highlighterWrap = $('<div>')
-        .addClass('highlighter-list-wrap')
-        .appendTo("#highlighter-listing");
-      let $highlighter = $('<div>')
-        .addClass('ui button highlighter-list')
-        .html(highlighter.name)
-        .attr('highlighter-id', highlighter.id)
-        .css({
-          "color": highlighter.color,
-          "backgroundColor": highlighter.backgroundColor,
-        }).appendTo($highlighterWrap);
+      loadSingleHighlighter(highlighter);
     });
   }
 
@@ -218,8 +220,8 @@ $(document).ready(() => {
             window.currPage = page
           }
         });
+        debugger
         loadWorkspaceContent();
-        window.currProject.dataChange = false;
       },
       error: function(e) {
         console.log(e);
@@ -296,7 +298,6 @@ $(document).ready(() => {
             let $after = $("<span>").html(splitHighlight[1]);
 
             $startDOM.replaceWith($before.prop('outerHTML') + $highlight.prop('outerHTML') + $after.prop('outerHTML'));
-            window.currProject.dataChange = true
           },
           error: function(e) {
             console.log(e);
@@ -366,33 +367,69 @@ $(document).ready(() => {
   });
 
   let refreshWorkspace = setInterval(() => {
-    console.log('checking');
+    // If haven't start using app, skip check
     if(!window.currPage) return;
-    let selectedPageId = window.currPage.id;
-    if(window.currProject.dataChange === true) {
-      $.ajax({
-        url: "/get_content",
-        method: "GET",
-        data: {
-          format: "json",
-          page_id: selectedPageId
-        },
-        success: function(data) {
-          if(window.currProject != data) {
-            window.currProject = data;
-            window.currPage = _.find(window.currProject.pages, (page) => {
-            	return page.id == window.currPage.id
-            });
-            debugger
-            loadWorkspaceContent();
-            console.log('refresh update');
-          }
-        },
-        error: function(e) {
-          console.log(e);
-        }
-      });
-    }
 
+    // Get length of all data
+    let pageCount = window.currProject.pages.length
+    let highlighterCount = window.currProject.highlighters.length
+    let highlightCount = 0;
+    _.each(window.currProject.highlighters, (highlighter) => {
+      highlightCount += highlighter.highlights.length;
+    });
+    let noteCount = 0;
+    _.each(window.currProject.highlighters, (highlighter) => {
+      _.each(highlighter.highlights, (highlight) => {
+        noteCount += highlight.notes.length;
+      })
+    });
+
+    $.ajax({
+      url: "/data_change",
+      method: "GET",
+      data: {
+        format: "json",
+        project_id: window.currProject.id,
+        page_count: pageCount,
+        highlighter_count: highlighterCount,
+        highlight_count: highlightCount,
+        note_count: noteCount
+      },
+      success: function(data) {
+        for(let i = 0; i < data.keys.length; i++) {
+          if(data.keys[i] === 'page') {
+            window.currProject.pages.push(data.data[i]);
+            let newPage = $('<div>')
+              .addClass('ui button content page-list')
+              .attr('page-id', data.data[i].id)
+              .html(data.data[i].title)
+              .appendTo($(`div.content.project-list[project-id="${data.data[i].project_id}"]`));
+          } else if(data.keys[i] === 'highlighter') {
+            window.currProject.highlighters.push(data.data[i]);
+            loadSingleHighlighter(data.data[i]);
+          } else if(data.keys[i] === 'highlight') {
+            let searchHighlighter = _.find(window.currProject.highlighters, (highlight) => {
+              return highlighter.id === data.data[i].highlighter_id;
+            });
+            searchHighlighter.push(data.data[i]);
+            // if new highlight is on current page, render
+            if(window.currPage.id === data.data[i].page.id) {
+              pageContentHighlight(data.data[i], data.data[i].highlighter);
+            }
+          } else {
+            let searchHighlighter = _.find(window.currProject.highlighters, (highlighter) => {
+              return highlighter.id === data.data[i].highlight.highlighter_id;
+            });
+            let searchHighlight = _.find(searchHighlighter.highlights, (highlight) => {
+              return highlight.id === data.data[i].highlight_id
+            });
+            searchHighlight.notes.push(data.data[i]);
+          }
+        }
+      },
+      error: function(e) {
+        console.log(e);
+      }
+    });
   }, refreshRate);
 });

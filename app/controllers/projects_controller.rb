@@ -27,4 +27,54 @@ class ProjectsController < ApplicationController
     destroyed_project = Project.find_by_id(params[:project_id]).destroy
     render json: destroyed_project
   end
+
+  def dataChange
+    curr_project = Project.find_by_id(params[:project_id])
+
+    page_count = curr_project.pages.count
+    highlighter_count = curr_project.highlighters.count
+
+    highlight_count = 0
+    note_count = 0
+    curr_project.highlighters.each do |highlighter|
+      highlight_count = highlight_count + highlighter.highlights.count
+      highlighter.highlights.each do |highlight|
+        note_count = note_count + highlight.notes.length
+      end
+    end
+
+    return_json = {
+      keys: [],
+      data: []
+    }
+    if page_count != params[:page_count]
+      return_json.keys << 'page'
+      return_json.data << Page.last
+    end
+
+    if highlighter_count != params[:highlighter_count]
+      return_json.keys << 'highlighter'
+      return_json.data << Highlighter.last
+    end
+
+    if highlight_count != params[:highlight_count]
+      return_json.keys << 'highlight'
+      return_json.data << Highlight.last.to_json(
+        include: {
+          page: {},
+          highlighter: {}
+        }
+      )
+    end
+
+    if note_count != params[:note_count]
+      return_json.keys << 'note'
+      return_json.data << Note.last.to_json(
+        include: {
+          highlight: {}
+        }
+      )
+    end
+    binding.pry
+  end
 end

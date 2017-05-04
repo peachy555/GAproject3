@@ -27,6 +27,8 @@ Rails.application.routes.draw do
   get "highlighters_min/:project_id", to: "highlighters#get_highlighters_min"
   delete "highlighters/:highlighter_id", to: "highlighters#destroy"
 
+  get "/data_change", to: "projects#data_change"
+
 
 
 end
