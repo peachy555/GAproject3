@@ -219,6 +219,7 @@ $(document).ready(() => {
           }
         });
         loadWorkspaceContent();
+        window.currProject.dataChange = false;
       },
       error: function(e) {
         console.log(e);
@@ -366,32 +367,33 @@ $(document).ready(() => {
   });
 
   let refreshWorkspace = setInterval(() => {
+    console.log('checking');
+    if(!window.currPage) return;
     let selectedPageId = window.currPage.id;
-    debugger
-    $.ajax({
-      url: "/get_content",
-      method: "GET",
-      data: {
-        format: "json",
-        page_id: selectedPageId
-      },
-      success: function(data) {
-        if(data != window.currProject) {
-          window.currProject = data;
-
-          loadWorkspaceContent();
+    if(window.currProject.dataChange === true) {
+      $.ajax({
+        url: "/get_content",
+        method: "GET",
+        data: {
+          format: "json",
+          page_id: selectedPageId
+        },
+        success: function(data) {
+          if(window.currProject != data) {
+            window.currProject = data;
+            window.currPage = _.find(window.currProject.pages, (page) => {
+            	return page.id == window.currPage.id
+            });
+            debugger
+            loadWorkspaceContent();
+            console.log('refresh update');
+          }
+        },
+        error: function(e) {
+          console.log(e);
         }
-        // window.currProject = data;
-        // _.find(window.currProject.pages, (page) => {
-        //   if(page.id === parseInt(selectedPageId)) {
-        //     window.currPage = page
-        //   }
-        // });
-      },
-      error: function(e) {
-        console.log(e);
-      }
-    });
-    loadWorkspaceContent();
+      });
+    }
+
   }, refreshRate);
 });
