@@ -12,17 +12,17 @@ $(document).ready(() => {
   });
   // Highlighter create preview
   $(document).on('keyup', '.highlighter.input.name', (event) => {
-    $('.preview.input.highlighter').html(event.target.value);
+    $('.preview.highlighter').html(event.target.value);
   });
 
   $(document).on('change', '.highlighter.input.color', (event) => {
-    $('.preview.input.highlighter').css({
+    $('.preview.highlighter').css({
       'color': event.target.value
     });
   });
 
   $(document).on('change', '.highlighter.input.backgroundColor', (event) => {
-    $('.preview.input.highlighter').css({
+    $('.preview.highlighter').css({
       'backgroundColor': event.target.value
     });
   });

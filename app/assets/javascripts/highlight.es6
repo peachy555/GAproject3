@@ -376,7 +376,7 @@ $(document).ready(() => {
     let highlighterCount = window.currProject.highlighters.length;
     let highlightCount = 0;
     _.each(window.currProject.highlighters, (highlighter) => {
-      if(typeof highlighter.highlights != undefined) {
+      if(typeof highlighter.highlights != "undefined") {
         highlightCount += highlighter.highlights.length;
       }
     });
@@ -403,6 +403,8 @@ $(document).ready(() => {
       success: function(data) {
         for(let i = 0; i < data.keys.length; i++) {
           let thisData = JSON.parse(data.data[i])
+debugger
+          // Add new data into local currProject
           if(data.keys[i] === 'page') {
             console.log('new PAGE found');
             window.currProject.pages.push(thisData);
@@ -411,10 +413,12 @@ $(document).ready(() => {
               .attr('page-id', thisData.id)
               .html(thisData.title)
               .appendTo($(`div.content.project-list[project-id="${thisData.project_id}"]`));
+
           } else if(data.keys[i] === 'highlighter') {
             console.log('new HIGHLIGHTer found');
             window.currProject.highlighters.push(thisData);
             loadSingleHighlighter(thisData);
+
           } else if(data.keys[i] === 'highlight') {
             console.log('new HIGHLIGHT found');
             let searchHighlighter = _.find(window.currProject.highlighters, (highlighter) => {
@@ -425,15 +429,25 @@ $(document).ready(() => {
             if(window.currPage.id === thisData.page.id) {
               pageContentHighlight([thisData], [thisData.highlighter]);
             }
+
           } else {
             console.log('new NOTE found');
+            // Push new note to project->HIGHLIGHTER->highlight->note
             let searchHighlighter = _.find(window.currProject.highlighters, (highlighter) => {
               return highlighter.id === thisData.highlight.highlighter_id;
             });
-            let searchHighlight = _.find(searchHighlighter.highlights, (highlight) => {
+            let searchHLHighlight = _.find(searchHighlighter.highlights, (highlight) => {
               return highlight.id === thisData.highlight_id
             });
-            searchHighlight.notes.push(thisData);
+            searchHLHighlight.notes.push(thisData);
+            // Push new note to project->PAGE->highlight->note
+            let searchPage = _.find(window.currProject.pages, (page) => {
+              return page.id === thisData.highlight.page_id;
+            });
+            let searchPageHighlight = _.find(searchPage.highlights, (highlight) => {
+              return highlight.id === thisData.highlight_id
+            });
+            searchPageHighlight.notes.push(thisData);
           }
         }
       },
