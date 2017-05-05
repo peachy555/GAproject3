@@ -414,9 +414,10 @@ $(document).ready(() => {
             loadSingleHighlighter(data.data[i]);
           } else if(data.keys[i] === 'highlight') {
             console.log('new HIGHLIGHT found');
-            console.log('data.data[i]', data.data[i]);
+            console.log('JSON.parse(data.data[i])', JSON.parse(data.data[i]));
             let searchHighlighter = _.find(window.currProject.highlighters, (highlighter) => {
-              return highlighter.id === data.data[i].highlighter_id;
+              console.log('highlighter.id', highlighter.id);
+              return highlighter.id === JSON.parse(data.data[i]).highlighter_id;
             });
             console.log('searchHighlighter', searchHighlighter);
             console.log('searchHighlighter.highlights', searchHighlighter.highlights);
