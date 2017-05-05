@@ -168,11 +168,12 @@
    float: right;
  }
 
- .preview.input.highlighter {
+ .preview.highlighter {
    text-align: center;
    height: 30px;
    width: 200px;
    background-color: yellow;
+   margin: auto;
  }
 
  .ui.small.input.container.highlighter {

@@ -397,7 +397,6 @@ $(document).ready(() => {
         note_count: noteCount
       },
       success: function(data) {
-        console.log(data);
         for(let i = 0; i < data.keys.length; i++) {
           if(data.keys[i] === 'page') {
             window.currProject.pages.push(data.data[i]);
@@ -413,8 +412,8 @@ $(document).ready(() => {
             let searchHighlighter = _.find(window.currProject.highlighters, (highlighter) => {
               return highlighter.id === data.data[i].highlighter_id;
             });
-            console.log(searchHighlighter.highlights);
-            console.log(JSON.parse(data.data[i]));
+            console.log('searchHighlighter.highlights', searchHighlighter.highlights);
+            console.log('JSON.parse(data.data[i])', JSON.parse(data.data[i]));
             searchHighlighter.highlights.push(JSON.parse(data.data[i]));
             // if new highlight is on current page, render
             if(window.currPage.id === data.data[i].page.id) {
