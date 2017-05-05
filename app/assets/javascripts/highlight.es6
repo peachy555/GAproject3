@@ -398,7 +398,7 @@ $(document).ready(() => {
       },
       success: function(data) {
         console.log('ajax success');
-        
+
         for(let i = 0; i < data.keys.length; i++) {
           if(data.keys[i] === 'page') {
             window.currProject.pages.push(data.data[i]);
@@ -412,10 +412,8 @@ $(document).ready(() => {
             loadSingleHighlighter(data.data[i]);
           } else if(data.keys[i] === 'highlight') {
             let searchHighlighter = _.find(window.currProject.highlighters, (highlighter) => {
-              debugger
               return highlighter.id === data.data[i].highlighter_id;
             });
-            debugger
             searchHighlighter.push(data.data[i]);
             // if new highlight is on current page, render
             if(window.currPage.id === data.data[i].page.id) {
