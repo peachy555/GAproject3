@@ -18,7 +18,11 @@
  */
  .main-container {
    width: 100vw;
-   height: 100vh;
+   height: 83vh;
+ }
+
+ #highlighter-menu {
+   margin-top: 5px;
  }
 
  .projects.main-container {
@@ -31,6 +35,11 @@
 
  h2 {
    font-size: 32px;
+ }
+
+ #page-container, #highlighter-listing {
+   overflow-y: scroll;
+   height: 72vh;
  }
 
  #page-content {
@@ -107,8 +116,8 @@
  }
 
  .ui.relaxed.divided.list {
-   height: 400px;
-   overflow: scroll;
+   height: 65vh;
+   overflow-y: scroll;
  }
 
  .login-wrap {
@@ -132,10 +141,6 @@
  .wrapper {
    margin: 25px 40px;
  }
-
-.ui.relaxed.divided.list {
-  height: 500px !important;
-}
 
 #page-header {
   height: 42px;

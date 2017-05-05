@@ -273,7 +273,6 @@ $(document).ready(() => {
       if( ($startDOM.attr('class')!='highlight') && ($endDOM.attr('class')!='highlight') ) {
         let context = $startDOM.html();
         let splitHighlight = context.split(selection.toString());
-
         // Create highlight in Rails db
         $.ajax({
           url: "/highlights/new",
@@ -285,6 +284,7 @@ $(document).ready(() => {
             highlighter_id: highlighter.id,
           },
           success: function(data) {
+
             let highlightId = data;
             console.log('Successfull post req');
 

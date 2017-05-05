@@ -3,7 +3,7 @@ class SessionsController < ApplicationController
   end
 
   def create
-    if params[:email].match /.+@.+\..+/i # Check if this is in an email format
+    if !(params[:email] =~ /.+@.+\..+/i).nil? # Check if this is in an email format
       user = User.find_by(email: params[:email])
     end
 
