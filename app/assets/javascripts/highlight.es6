@@ -402,10 +402,10 @@ $(document).ready(() => {
       },
       success: function(data) {
         for(let i = 0; i < data.keys.length; i++) {
-          let thisData = JSON.parse(data.data[i])
-debugger
           // Add new data into local currProject
           if(data.keys[i] === 'page') {
+debugger
+            let thisData = JSON.parse(data.data[i])
             console.log('new PAGE found');
             window.currProject.pages.push(thisData);
             let newPage = $('<div>')
@@ -415,11 +415,13 @@ debugger
               .appendTo($(`div.content.project-list[project-id="${thisData.project_id}"]`));
 
           } else if(data.keys[i] === 'highlighter') {
+            let thisData = data.data[i];
             console.log('new HIGHLIGHTer found');
             window.currProject.highlighters.push(thisData);
             loadSingleHighlighter(thisData);
 
           } else if(data.keys[i] === 'highlight') {
+            let thisData = JSON.parse(data.data[i])
             console.log('new HIGHLIGHT found');
             let searchHighlighter = _.find(window.currProject.highlighters, (highlighter) => {
               return highlighter.id === thisData.highlighter_id;
@@ -431,6 +433,7 @@ debugger
             }
 
           } else {
+            let thisData = JSON.parse(data.data[i])
             console.log('new NOTE found');
             // Push new note to project->HIGHLIGHTER->highlight->note
             let searchHighlighter = _.find(window.currProject.highlighters, (highlighter) => {
