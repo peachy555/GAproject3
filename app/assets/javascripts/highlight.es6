@@ -400,6 +400,7 @@ $(document).ready(() => {
         for(let i = 0; i < data.keys.length; i++) {
           if(data.keys[i] === 'page') {
             console.log('new PAGE found');
+            console.log('data.data[i]', data.data[i]);
             window.currProject.pages.push(data.data[i]);
             let newPage = $('<div>')
               .addClass('ui button content page-list')
@@ -408,10 +409,12 @@ $(document).ready(() => {
               .appendTo($(`div.content.project-list[project-id="${data.data[i].project_id}"]`));
           } else if(data.keys[i] === 'highlighter') {
             console.log('new HIGHLIGHTer found');
+            console.log('data.data[i]', data.data[i]);
             window.currProject.highlighters.push(data.data[i]);
             loadSingleHighlighter(data.data[i]);
           } else if(data.keys[i] === 'highlight') {
             console.log('new HIGHLIGHT found');
+            console.log('data.data[i]', data.data[i]);
             let searchHighlighter = _.find(window.currProject.highlighters, (highlighter) => {
               return highlighter.id === data.data[i].highlighter_id;
             });
@@ -425,12 +428,15 @@ $(document).ready(() => {
             }
           } else {
             console.log('new NOTE found');
+            console.log('data.data[i]', data.data[i]);
             let searchHighlighter = _.find(window.currProject.highlighters, (highlighter) => {
               return highlighter.id === data.data[i].highlight.highlighter_id;
             });
             let searchHighlight = _.find(searchHighlighter.highlights, (highlight) => {
               return highlight.id === data.data[i].highlight_id
             });
+            console.log('searchHighlighter', searchHighlighter);
+            console.log('searchHighlighter.notes', searchHighlighter.notes);
             searchHighlight.notes.push(data.data[i]);
           }
         }
