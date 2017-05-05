@@ -220,7 +220,6 @@ $(document).ready(() => {
             window.currPage = page
           }
         });
-        debugger
         loadWorkspaceContent();
       },
       error: function(e) {
@@ -375,7 +374,9 @@ $(document).ready(() => {
     let highlighterCount = window.currProject.highlighters.length;
     let highlightCount = 0;
     _.each(window.currProject.highlighters, (highlighter) => {
-      highlightCount += highlighter.highlights.length;
+      if(typeof highlighter.highlights != undefined) {
+        highlightCount += highlighter.highlights.length;
+      }
     });
     let noteCount = 0;
     _.each(window.currProject.highlighters, (highlighter) => {
@@ -397,6 +398,7 @@ $(document).ready(() => {
       },
       success: function(data) {
         console.log('ajax success');
+        
         for(let i = 0; i < data.keys.length; i++) {
           if(data.keys[i] === 'page') {
             window.currProject.pages.push(data.data[i]);
@@ -409,9 +411,11 @@ $(document).ready(() => {
             window.currProject.highlighters.push(data.data[i]);
             loadSingleHighlighter(data.data[i]);
           } else if(data.keys[i] === 'highlight') {
-            let searchHighlighter = _.find(window.currProject.highlighters, (highlight) => {
+            let searchHighlighter = _.find(window.currProject.highlighters, (highlighter) => {
+              debugger
               return highlighter.id === data.data[i].highlighter_id;
             });
+            debugger
             searchHighlighter.push(data.data[i]);
             // if new highlight is on current page, render
             if(window.currPage.id === data.data[i].page.id) {

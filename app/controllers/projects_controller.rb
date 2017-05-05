@@ -28,7 +28,7 @@ class ProjectsController < ApplicationController
     render json: destroyed_project
   end
 
-  def dataChange
+  def data_change
     curr_project = Project.find_by_id(params[:project_id])
 
     page_count = curr_project.pages.count
@@ -47,19 +47,19 @@ class ProjectsController < ApplicationController
       keys: [],
       data: []
     }
-    if page_count != params[:page_count]
-      return_json.keys << 'page'
-      return_json.data << Page.last
+    if page_count != params[:page_count].to_i
+      return_json[:keys] << 'page'
+      return_json[:data] << Page.last
     end
 
-    if highlighter_count != params[:highlighter_count]
-      return_json.keys << 'highlighter'
-      return_json.data << Highlighter.last
+    if highlighter_count != params[:highlighter_count].to_i
+      return_json[:keys] << 'highlighter'
+      return_json[:data] << Highlighter.last
     end
 
-    if highlight_count != params[:highlight_count]
-      return_json.keys << 'highlight'
-      return_json.data << Highlight.last.to_json(
+    if highlight_count != params[:highlight_count].to_i
+      return_json[:keys] << 'highlight'
+      return_json[:data] << Highlight.last.to_json(
         include: {
           page: {},
           highlighter: {}
@@ -67,14 +67,15 @@ class ProjectsController < ApplicationController
       )
     end
 
-    if note_count != params[:note_count]
-      return_json.keys << 'note'
-      return_json.data << Note.last.to_json(
+    if note_count != params[:note_count].to_i
+      return_json[:keys] << 'note'
+      return_json[:data] << Note.last.to_json(
         include: {
           highlight: {}
         }
       )
     end
-    binding.pry
+
+    render json: return_json
   end
 end
