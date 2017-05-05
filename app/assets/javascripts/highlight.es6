@@ -38,13 +38,10 @@ $(document).ready(() => {
       let spanContainHighlight = _.find(contentsNoHighlight, (span) => {
         return $(span).html().indexOf(highlight.content) != -1 ? true : false;
       });
-
-      if(typeof spanContainHighlight !== "undefined") {
         let splitHighlight = $(spanContainHighlight).html().split(highlight.content);
         let $before = $("<span>").html(splitHighlight[0]);
         let $after = $("<span>").html(splitHighlight[1]);
         $(spanContainHighlight).replaceWith($before.prop('outerHTML') + $highlight.prop('outerHTML') + $after.prop('outerHTML'));
-      }
     });
   }
   let loadSingleHighlighter = (highlighter) => {

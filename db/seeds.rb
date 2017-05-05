@@ -29,47 +29,14 @@ u11 = User.create(email: "hayley@wdi.com", password: "test", name: "Hayley")
 pj1 = Project.create(name: "Artificial Intelegence")
 pj2 = Project.create(name: "Functional Programming")
 
-pg1 = Page.create(title: "Artificial Intelligence: A Modern Approach", project: pj1, content: "Humankind has given itself the scientific name homo sapiens—man the wise—because our
-mental capacities are so important to our everyday lives and our sense of self. The field of
-artificial intelligence, or AI, attempts to understand intelligent entities. Thus, one reason to
-study it is to learn more about ourselves. But unlike philosophy and psychology, which are
-also concerned with intelligence, AI strives to build intelligent entities as well as understand
-them. Another reason to study AI is that these constructed intelligent entities are interesting and
-useful in their own right. AI has produced many significant and impressive products even at this
-early stage in its development. Although no one can predict the future in detail, it is clear that
-computers with human-level intelligence (or better) would have a huge impact on our everyday
-lives and on the future course of civilization.
+pg1 = Page.create(title: "Artificial Intelligence: A Modern Approach", project: pj1, content: "Rather than taking plans to be sequences of actions, which may only rarely execute as expected, we take them to be mappings from situations to actions that specify the agent’s behavior no matter what may happen. In many cases, we may not want a full policy; methods for developing partial policies and conditional plans for completely observable domains are the subject of much current interest [13,15,61]. A weakness of the methods described in this paper is that they require the states of the world to be represented enumeratively, rather than through compositional representations such as Bayes nets or probabilistic operator descriptions. However, this work has served as a substrate for development of algorithms for more complex and efficient representations [6]. Section 6 describes the relation between the present approach and prior research in more detail. One important facet of the POMDP approach is that there is no distinction drawn between actions taken to change the state of the world and actions taken to gain information. This is important because, in general, every action has both types of effect. Stopping to ask questions may delay the robot’s arrival at the goal or spend extra energy; moving forward may give the robot information that it is in a dead-end because of the resulting crash. Thus, from the POMDP perspective, optimal performance involves something akin to a “value of information” calculation, only more complex; the agent chooses between actions based on the amount of information they provide, the amount of reward they produce, and how they change the state of the world.
 \n
-AI addresses one of the ultimate puzzles. How is it possible for a slow, tiny brain, whether
-biological or electronic, to perceive, understand, predict, and manipulate a world far larger and
-more complicated than itself? How do we go about making something with those properties?
-These are hard questions, but unlike the search for faster-than-light travel or an antigravity device,
-the researcher in AI has solid evidence that the quest is possible. All the researcher has to do is
-look in the mirror to see an example of an intelligent system.
+This paper is intended to make two contributions. The first is to recapitulate work from the operations-research literature [36,42,56,59,64] and to describe its connection to closely related work in AI. The second is to describe a novel algorithmic approach for solving POMDPS exactly. We begin by introducing the theory of Markov decision processes (MDPS) and POMDPS. We then outline a novel algorithm for solving POMDPS off line and show how,
+in some cases, a finite-memory controller can be extracted from the solution to a POMDP. We conclude with a brief discussion of related work and of approximation methods.
 \n
-AI is one of the newest disciplines. It was formally initiated in 1956, when the name
-was coined, although at that point work had been under way for about five years. Along with
-modern genetics, it is regularly cited as the 'field I would most like to be in' by scientists in other
-disciplines. A student in physics might reasonably feel that all the good ideas have already been
-taken by Galileo, Newton, Einstein, and the rest, and that it takes many years of study before one
-can contribute new ideas. AI, on the other hand, still has openings for a full-time Einstein.
-The study of intelligence is also one of the oldest disciplines. For over 2000 years, philosophers
-have tried to understand how seeing, learning, remembering, and reasoning could, or should,be done.' The advent of usable computers in the early 1950s turned the learned but armchair
-speculation concerning these mental faculties into a real experimental and theoretical discipline.
-Many felt that the new 'Electronic Super-Brains' had unlimited potential for intelligence. 'Faster
-Than Einstein' was a typical headline. But as well as providing a vehicle for creating artificially
-intelligent entities, the computer provides a tool for testing theories of intelligence, and many
-theories failed to withstand the test—a case of 'out of the armchair, into the fire.' AI has turned
-out to be more difficult than many at first imagined, and modem ideas are much richer, more
-subtle, and more interesting as a result.
-\n
-AI currently encompasses a huge variety of subfields, from general-purpose areas such as
-perception and logical reasoning, to specific tasks such as playing chess, proving mathematical
-theorems, writing poetry, and diagnosing diseases. Often, scientists in other fields move gradually
-into artificial intelligence, where they find the tools and vocabulary to systematize and automate
-the intellectual tasks on which they have been working all their lives. Similarly, workers in AI
-can choose to apply their methods to any area of human intellectual endeavor. In this sense, it is
-truly a universal field.")
+in this paper, we bring techniques from operations research to bear on the problem of choosing optimal actions in partially observable stochastic domains. Problems like the one described above can be modeled as partially observable Markov decision processes (POMDPS). Of course, we are not interested only in problems of robot navigation. Similar problems come up in factory process control, oil exploration, transportation logistics, and
+a variety of other complex real-world situations. This is essentially a planning problem: given a complete and correct model of the world dynamics and a reward structure, find an optimal way to behave. In the artificial
+intelligence (AI) literature, a deterministic version of this problem has been addressed by adding knowledge preconditions to traditional planning systems [43]. Because we are interested in stochastic domains, however, we must depart from the traditional AI planning model.")
 
 pg2 = Page.create(title: "Planning and acting in partially observable stochastic domains", project: pj1, content: "in this paper, we bring techniques from operations research to bear on the problem of choosing optimal actions in partially observable stochastic domains. Problems like the one described above can be modeled as partially observable Markov decision processes (POMDPS). Of course, we are not interested only in problems of robot navigation. Similar problems come up in factory process control, oil exploration, transportation logistics, and
 a variety of other complex real-world situations. This is essentially a planning problem: given a complete and correct model of the world dynamics and a reward structure, find an optimal way to behave. In the artificial
