@@ -39,10 +39,12 @@ $(document).ready(() => {
         return $(span).html().indexOf(highlight.content) != -1 ? true : false;
       });
 
-      let splitHighlight = $(spanContainHighlight).html().split(highlight.content);
-      let $before = $("<span>").html(splitHighlight[0]);
-      let $after = $("<span>").html(splitHighlight[1]);
-      $(spanContainHighlight).replaceWith($before.prop('outerHTML') + $highlight.prop('outerHTML') + $after.prop('outerHTML'));
+      if(typeof spanContainHighlight !== "undefined") {
+        let splitHighlight = $(spanContainHighlight).html().split(highlight.content);
+        let $before = $("<span>").html(splitHighlight[0]);
+        let $after = $("<span>").html(splitHighlight[1]);
+        $(spanContainHighlight).replaceWith($before.prop('outerHTML') + $highlight.prop('outerHTML') + $after.prop('outerHTML'));
+      }
     });
   }
   let loadSingleHighlighter = (highlighter) => {
@@ -381,7 +383,9 @@ $(document).ready(() => {
     let noteCount = 0;
     _.each(window.currProject.highlighters, (highlighter) => {
       _.each(highlighter.highlights, (highlight) => {
-        noteCount += highlight.notes.length;
+        if(typeof highlight.notes !== "undefined") {
+          noteCount += highlight.notes.length;
+        }
       })
     });
     console.log(pageCount, highlighterCount, highlightCount, noteCount);
@@ -398,44 +402,38 @@ $(document).ready(() => {
       },
       success: function(data) {
         for(let i = 0; i < data.keys.length; i++) {
+          let thisData = JSON.parse(data.data[i])
           if(data.keys[i] === 'page') {
             console.log('new PAGE found');
-            window.currProject.pages.push(data.data[i]);
+            window.currProject.pages.push(thisData);
             let newPage = $('<div>')
               .addClass('ui button content page-list')
-              .attr('page-id', data.data[i].id)
-              .html(data.data[i].title)
-              .appendTo($(`div.content.project-list[project-id="${data.data[i].project_id}"]`));
+              .attr('page-id', thisData.id)
+              .html(thisData.title)
+              .appendTo($(`div.content.project-list[project-id="${thisData.project_id}"]`));
           } else if(data.keys[i] === 'highlighter') {
             console.log('new HIGHLIGHTer found');
-            window.currProject.highlighters.push(data.data[i]);
-            loadSingleHighlighter(data.data[i]);
+            window.currProject.highlighters.push(thisData);
+            loadSingleHighlighter(thisData);
           } else if(data.keys[i] === 'highlight') {
             console.log('new HIGHLIGHT found');
-            console.log('JSON.parse(data.data[i])', JSON.parse(data.data[i]));
             let searchHighlighter = _.find(window.currProject.highlighters, (highlighter) => {
-              console.log('highlighter', highlighter);
-              console.log('highlighter.id', highlighter.id);
-              console.log('JSON.parse(data.data[i]).highlighter_id', JSON.parse(data.data[i]).highlighter_id);
-              return highlighter.id === JSON.parse(data.data[i]).highlighter_id;
+              return highlighter.id === thisData.highlighter_id;
             });
-            console.log('searchHighlighter', searchHighlighter);
-            console.log('searchHighlighter.highlights', searchHighlighter.highlights);
-            console.log('JSON.parse(data.data[i])', JSON.parse(data.data[i]));
-            searchHighlighter.highlights.push(JSON.parse(data.data[i]));
+            searchHighlighter.highlights.push(thisData);
             // if new highlight is on current page, render
-            if(window.currPage.id === data.data[i].page.id) {
-              pageContentHighlight(data.data[i], data.data[i].highlighter);
+            if(window.currPage.id === thisData.page.id) {
+              pageContentHighlight([thisData], [thisData.highlighter]);
             }
           } else {
             console.log('new NOTE found');
             let searchHighlighter = _.find(window.currProject.highlighters, (highlighter) => {
-              return highlighter.id === data.data[i].highlight.highlighter_id;
+              return highlighter.id === thisData.highlight.highlighter_id;
             });
             let searchHighlight = _.find(searchHighlighter.highlights, (highlight) => {
-              return highlight.id === data.data[i].highlight_id
+              return highlight.id === thisData.highlight_id
             });
-            searchHighlight.notes.push(data.data[i]);
+            searchHighlight.notes.push(thisData);
           }
         }
       },
