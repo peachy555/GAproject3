@@ -413,7 +413,8 @@ $(document).ready(() => {
             let searchHighlighter = _.find(window.currProject.highlighters, (highlighter) => {
               return highlighter.id === data.data[i].highlighter_id;
             });
-            searchHighlighter.push(JSON.parse(data.data[i]));
+            console.log(JSON.parse(data.data[i]));
+            searchHighlighter.highlights.push(JSON.parse(data.data[i]));
             // if new highlight is on current page, render
             if(window.currPage.id === data.data[i].page.id) {
               pageContentHighlight(data.data[i], data.data[i].highlighter);
