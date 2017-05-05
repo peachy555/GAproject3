@@ -10,6 +10,7 @@ $(document).ready(() => {
     $('.text.project')
       .addClass('default')
       .html('Select project');
+    $('.add-collab.email').val('');
   }
 
   // Add collaborators
@@ -26,6 +27,7 @@ $(document).ready(() => {
         email: addCollabEmail
       },
       success: function(data) {
+        resetDefaultText();
       },
       error: function(e) {
         console.log(e);

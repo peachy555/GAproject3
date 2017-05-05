@@ -233,7 +233,6 @@ $(document).ready(() => {
   // Selecting highlighter with toogle
   $(document).on("click", ".highlighter-list", (event) => {
     let $target = $(event.target);
-    console.log();
     $(".highlighter-list.active").parent().css({
       "borderColor": "",
       "backgroundColor": ""
@@ -267,7 +266,6 @@ $(document).ready(() => {
       let selection = window.getSelection();
       let $startDOM = $(selection.anchorNode.parentNode);
       let $endDOM = $(selection.focusNode.parentNode);
-      console.log(selection.toString());
 
       // check if the start and end of highlighted part is insided already highlighted text or not?
       if( ($startDOM.attr('class')!='highlight') && ($endDOM.attr('class')!='highlight') ) {
@@ -284,9 +282,7 @@ $(document).ready(() => {
             highlighter_id: highlighter.id,
           },
           success: function(data) {
-
             let highlightId = data;
-            console.log('Successfull post req');
 
             // physical highlight
             let $highlight = $("<span>")
@@ -305,11 +301,7 @@ $(document).ready(() => {
           }
         });
 
-      } else {
-        console.log("You are highlighting already highlighted content");
       }
-    } else {
-      console.log("Select a highlighter");
     }
   });
 
@@ -388,7 +380,6 @@ $(document).ready(() => {
         }
       })
     });
-    console.log(pageCount, highlighterCount, highlightCount, noteCount);
     $.ajax({
       url: "/data_change",
       method: "GET",
@@ -405,7 +396,6 @@ $(document).ready(() => {
           // Add new data into local currProject
           if(data.keys[i] === 'page') {
             let thisData = data.data[i];
-            console.log('new PAGE found');
             window.currProject.pages.push(thisData);
             let newPage = $('<div>')
               .addClass('ui button content page-list')
@@ -415,13 +405,11 @@ $(document).ready(() => {
 
           } else if(data.keys[i] === 'highlighter') {
             let thisData = data.data[i];
-            console.log('new HIGHLIGHTer found');
             window.currProject.highlighters.push(thisData);
             loadSingleHighlighter(thisData);
 
           } else if(data.keys[i] === 'highlight') {
             let thisData = JSON.parse(data.data[i])
-            console.log('new HIGHLIGHT found');
             let searchHighlighter = _.find(window.currProject.highlighters, (highlighter) => {
               return highlighter.id === thisData.highlighter_id;
             });
@@ -433,7 +421,6 @@ $(document).ready(() => {
 
           } else {
             let thisData = JSON.parse(data.data[i])
-            console.log('new NOTE found');
             // Push new note to project->HIGHLIGHTER->highlight->note
             let searchHighlighter = _.find(window.currProject.highlighters, (highlighter) => {
               return highlighter.id === thisData.highlight.highlighter_id;

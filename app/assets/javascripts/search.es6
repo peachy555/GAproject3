@@ -1,7 +1,6 @@
 $(document).ready(() => {
   // display dropdown search
   let displayHLSearch = (searchResults) => {
-    debugger
     $('#seach-results-wrap').empty();
     let $searchResultsWrap = $('#seach-results-wrap')
       .append(
@@ -27,8 +26,6 @@ $(document).ready(() => {
         });
       });
     });
-    console.log(searchResults);
-    // debugger;
   }
 
   // search with dropdowns
