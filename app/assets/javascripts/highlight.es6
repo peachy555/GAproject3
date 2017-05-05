@@ -404,8 +404,7 @@ $(document).ready(() => {
         for(let i = 0; i < data.keys.length; i++) {
           // Add new data into local currProject
           if(data.keys[i] === 'page') {
-debugger
-            let thisData = JSON.parse(data.data[i])
+            let thisData = data.data[i];
             console.log('new PAGE found');
             window.currProject.pages.push(thisData);
             let newPage = $('<div>')
