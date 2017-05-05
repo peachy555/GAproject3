@@ -415,6 +415,7 @@ $(document).ready(() => {
             let searchHighlighter = _.find(window.currProject.highlighters, (highlighter) => {
               return highlighter.id === data.data[i].highlighter_id;
             });
+            console.log('searchHighlighter', searchHighlighter);
             console.log('searchHighlighter.highlights', searchHighlighter.highlights);
             console.log('JSON.parse(data.data[i])', JSON.parse(data.data[i]));
             searchHighlighter.highlights.push(JSON.parse(data.data[i]));
