@@ -215,9 +215,14 @@ $(document).ready(() => {
     $('#new-project-modal').modal('hide');
   });
 
+  $(document).on('click', 'span.highlight', () => {
+    $('#note-modal').modal('show');
+  });
+
   // new note
   $(document).on('click', '#submit-note', (event) => {
     event.preventDefault();
+    debugger
     let newNoteContent = $('#new-note-content').val();
     let newNoteHLId = $('#note-modal').attr('highlight-id');
     $.ajax({
@@ -243,6 +248,7 @@ $(document).ready(() => {
           	return highlight.id === data.highlight_id
           });
         highlightPage.notes.push(data);
+        debugger;
       },
       error: function(e) {
         console.log(e);
@@ -250,5 +256,6 @@ $(document).ready(() => {
     });
 
     $('#note-modal').modal('hide');
+    debugger
   });
 });
