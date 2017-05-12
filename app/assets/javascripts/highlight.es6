@@ -22,28 +22,38 @@ $(document).ready(() => {
 
   // Highlight page content
   let pageContentHighlight = (highlights, highlighters) => {
+
     _.each(highlights, (highlight) => {
       let highlighter = _.where(highlighters, {id: highlight.highlighter_id});
+      highlighter = highlighter[0];
+
       let $highlight = $('<span>')
         .addClass('highlight')
         .attr('highlight-id', highlight.id)
         .attr('highlighter-id', highlight.highlighter_id)
         .html(highlight.content)
         .css({
-          'color': highlighter[0].color,
-          'backgroundColor': highlighter[0].backgroundColor
+          'color': highlighter.color,
+          'backgroundColor': highlighter.backgroundColor
         });
 
-      let contentsNoHighlight = $("#page-content > span:not([class])")
+      let contentsNoHighlight = $("#page-content > span:not([class])");
+
       let spanContainHighlight = _.find(contentsNoHighlight, (span) => {
+        
         return $(span).html().indexOf(highlight.content) != -1 ? true : false;
       });
-        let splitHighlight = $(spanContainHighlight).html().split(highlight.content);
-        let $before = $("<span>").html(splitHighlight[0]);
-        let $after = $("<span>").html(splitHighlight[1]);
-        $(spanContainHighlight).replaceWith($before.prop('outerHTML') + $highlight.prop('outerHTML') + $after.prop('outerHTML'));
+
+      let splitHighlight = $(spanContainHighlight).html().split(highlight.content);
+
+      let $before = $("<span>").html(splitHighlight[0]);
+
+      let $after = $("<span>").html(splitHighlight[1]);
+
+      $(spanContainHighlight).replaceWith($before.prop('outerHTML') + $highlight.prop('outerHTML') + $after.prop('outerHTML'));
     });
   }
+
   let loadSingleHighlighter = (highlighter) => {
     let $highlighterWrap = $('<div>')
       .addClass('highlighter-list-wrap')
@@ -279,13 +289,23 @@ $(document).ready(() => {
             highlighter_id: highlighter.id,
           },
           success: function(data) {
-            let highlightId = data;
+            let highlight = data;
+            // update to window.currProject
+            var projectHighlighter = _.find(window.currProject.highlighters, (highlighter) => {
+              return highlighter.id = highlight.highlighter_id
+            });
+            projectHighlighter.highlights.push(highlight);
+
+            var projectPage = _.find(window.currProject.pages, (page) => {
+              return page.id = highlight.page_id
+            });
+            projectPage.highlights.push(highlight);
 
             // physical highlight
             let $highlight = $("<span>")
               .addClass("highlight")
               .attr("highlighter-id", highlighter.id)
-              .attr("highlight-id", highlightId)
+              .attr("highlight-id", highlight.id)
               .html(selection.toString())
               .css(highlighter.cssProp);
             let $before = $("<span>").html(splitHighlight[0]);
@@ -315,6 +335,7 @@ $(document).ready(() => {
     });
 
     $('#note-display').empty();
+
     if(highlight.notes.length != 0) {
       _.each(highlight.notes, (note) => {
         $('#note-display')

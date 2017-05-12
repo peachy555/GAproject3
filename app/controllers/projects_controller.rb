@@ -1,8 +1,12 @@
 class ProjectsController < ApplicationController
   def index
-    @projects = @current_user.projects
-    @highlighters = []
-    @pages = []
+    if @current_user
+      @projects = @current_user.projects
+      @highlighters = []
+      @pages = []
+    else
+      redirect_to home_path
+    end
   end
 
   def create

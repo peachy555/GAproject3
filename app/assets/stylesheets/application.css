@@ -41,7 +41,7 @@
 
  #page-container, #highlighter-listing {
    overflow-y: scroll;
-   height: 72vh;
+   max-height: 72vh;
  }
 
  #page-content {
@@ -118,7 +118,7 @@
  }
 
  .ui.relaxed.divided.list {
-   height: 65vh;
+   max-height: 65vh;
    overflow-y: scroll;
  }
 

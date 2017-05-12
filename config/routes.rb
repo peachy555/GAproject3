@@ -16,6 +16,7 @@ Rails.application.routes.draw do
 
   # Session related
   post "login", to: "sessions#create"
+  get "home", to: "sessions#new", as: "home"
   delete "logout", to: "sessions#destroy", as: "logout"
   post "users/new", to: "users#create", as: "signup"
 

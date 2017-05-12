@@ -222,7 +222,7 @@ $(document).ready(() => {
   // new note
   $(document).on('click', '#submit-note', (event) => {
     event.preventDefault();
-    debugger
+
     let newNoteContent = $('#new-note-content').val();
     let newNoteHLId = $('#note-modal').attr('highlight-id');
     $.ajax({
@@ -248,14 +248,15 @@ $(document).ready(() => {
           	return highlight.id === data.highlight_id
           });
         highlightPage.notes.push(data);
-        debugger;
       },
       error: function(e) {
         console.log(e);
       }
     });
-
     $('#note-modal').modal('hide');
-    debugger
+  });
+
+  $(document).on('click', '#close-note', (event) => {
+    $('#note-modal').modal('hide');
   });
 });

@@ -1,23 +1,23 @@
 class SessionsController < ApplicationController
   def new
+    if @current_user
+      redirect_to workspace_path
+    end
   end
 
   def create
     if !(params[:email] =~ /.+@.+\..+/i).nil? # Check if this is in an email format
       user = User.find_by(email: params[:email])
-    end
-
-    if user
-      if user.authenticate(params[:password])
-        # we have a real user
-        # raise params
-        session[:user_id] = user.id
-        redirect_to workspace_path
+      if user
+        if user.authenticate(params[:password])
+          session[:user_id] = user.id
+          redirect_to workspace_path
+        else
+          redirect_to home_path
+        end
       else
-        render :new
+        redirect_to home_path
       end
-    else
-      render :new
     end
   end
 
