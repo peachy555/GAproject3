@@ -40,7 +40,7 @@ $(document).ready(() => {
       let contentsNoHighlight = $("#page-content > span:not([class])");
 
       let spanContainHighlight = _.find(contentsNoHighlight, (span) => {
-        
+
         return $(span).html().indexOf(highlight.content) != -1 ? true : false;
       });
 
@@ -312,6 +312,16 @@ $(document).ready(() => {
             let $after = $("<span>").html(splitHighlight[1]);
 
             $startDOM.replaceWith($before.prop('outerHTML') + $highlight.prop('outerHTML') + $after.prop('outerHTML'));
+
+            // update with local variable
+            debugger
+
+            let searchHighlighter = _.find(window.currProject.highlighters, (highlighter) => {
+              return highlighter.id === data.highlighter_id;
+            });
+            searchHighlighter.highlights.push(data);
+
+            debugger
           },
           error: function(e) {
             console.log(e);
@@ -336,7 +346,7 @@ $(document).ready(() => {
 
     $('#note-display').empty();
 
-    if(highlight.notes.length != 0) {
+    if(highlight.notes && highlight.notes.length != 0) {
       _.each(highlight.notes, (note) => {
         $('#note-display')
           .append(
@@ -432,6 +442,12 @@ $(document).ready(() => {
               return highlighter.id === thisData.highlighter_id;
             });
             searchHighlighter.highlights.push(thisData);
+
+            let searchPage = _.find(window.currProject.pages, (page) => {
+              return page.id === thisData.page_id;
+            });
+            searchPage.highlights.push(thisData);
+
             // if new highlight is on current page, render
             if(window.currPage.id === thisData.page.id) {
               pageContentHighlight([thisData], [thisData.highlighter]);
