@@ -314,14 +314,12 @@ $(document).ready(() => {
             $startDOM.replaceWith($before.prop('outerHTML') + $highlight.prop('outerHTML') + $after.prop('outerHTML'));
 
             // update with local variable
-            debugger
 
             let searchHighlighter = _.find(window.currProject.highlighters, (highlighter) => {
               return highlighter.id === data.highlighter_id;
             });
             searchHighlighter.highlights.push(data);
 
-            debugger
           },
           error: function(e) {
             console.log(e);
