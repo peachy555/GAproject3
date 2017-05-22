@@ -478,3 +478,79 @@ $(document).ready(() => {
     });
   }, refreshRate);
 });
+
+
+// $(document).ready(() => {
+//   // initialize local variables
+//   let updateSpeed = 1000;
+//
+//   let checkUpdateFromRails = () => {
+//     let updateChecker = setInterval(() => {
+//
+//       // send mini ajax to see
+//       console.log('in interval update');
+//     }, updateSpeed);
+//   }
+//
+//   let initialize = () => {
+//     // Ajax to get all project of current user
+//     $.ajax({
+//       url: '/initialize',
+//       method: 'GET',
+//       data: {
+//         format: 'json'
+//       },
+//       success: (data) => {
+//         window.userProjects = data;
+//       },
+//       error: (e) => {
+//         debugger
+//         console.log(e);
+//       }
+//     })
+//     checkUpdateFromRails();
+//   }
+//
+//   let loadHighlighters = ($pageItem) => {
+//     // load and render each highlighter onto highlihgter_list
+//     let projectID = $pageItem.parent().attr('project-id');
+//     // let pageID = $pageItem.attr('page-id');
+//
+//     let project = _.find(window.userProjects, (project) => {
+//       return project.id === parseInt(projectID)
+//     });
+//     // let page = _.find(project.pages, (page) => {
+//     //   return page.id === parseInt(pageID)
+//     // });
+//
+//     let highlighters = project.highlighters;
+//     _.each(highlighters, (highlighter) => {
+//
+//     });
+//   }
+//   //
+//   // let loadSingleHighlighter = (content, highlighter) => {
+//   //   // highlight one highight
+//   // }
+//   //
+//   // let loadAllHighlights = (page_id) => {
+//   //   // get array of highlights from local variable
+//   //   _.each(highlightsList, (highlight) => {
+//   //     // get highlighter corresponding to highlight
+//   //     loadSingleHighlighter(highlightContent, highlighter);
+//   //   })
+//   // }
+//
+//   let loadWorkspace = (target) => {
+//     // inject page content according to clicked page
+//
+//     loadAllHighlights(page_id);
+//   }
+//
+//   initialize();
+//
+//   $(document).on('click', '.page-list', (e) => {
+//     loadHighlighters($(e.target));
+//     // loadWorkspace($(e.target));
+//   });
+// });

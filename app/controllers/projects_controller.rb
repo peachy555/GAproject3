@@ -2,11 +2,30 @@ class ProjectsController < ApplicationController
   def index
     if @current_user
       @projects = @current_user.projects
-      @highlighters = []
-      @pages = []
     else
       redirect_to home_path
     end
+  end
+
+  def init
+    render json: @current_user.projects.to_json(
+      include: {
+        pages: {
+          include: {
+            highlights: {
+              notes: {}
+            }
+          }
+        },
+        highlighters: {
+          include: {
+            highlights: {
+              notes: {}
+            }
+          }
+        }
+      }
+    )
   end
 
   def create

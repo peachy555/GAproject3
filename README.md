@@ -1,4 +1,4 @@
-# Welcome to Highlight (by Peach)
+# Highlight (by Peach)
 
 https://fathomless-hamlet-60398.herokuapp.com
 
